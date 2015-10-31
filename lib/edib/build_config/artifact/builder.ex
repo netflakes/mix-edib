@@ -49,7 +49,6 @@ defmodule EDIB.BuildConfig.Artifact.Builder do
   defp maybe_set_rm_flag(true), do: "--rm"
   defp maybe_set_rm_flag(false), do: ""
 
-
   defp set_docker_command({:ok, config, command_list}) do
     {:ok, config, [Defaults.docker_run | command_list]}
   end
@@ -59,11 +58,4 @@ defmodule EDIB.BuildConfig.Artifact.Builder do
     do: {:ok, Enum.join(command_list, " ")}
   defp return_command(error),
     do: error
-
-  [
-    Defaults.docker_run,
-    :volumes,
-    :settings,
-    :edib_tool
-  ]
 end
