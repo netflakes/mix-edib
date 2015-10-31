@@ -11,8 +11,8 @@ archive:
 gitio:
 	@[ -n "$(VERSION)" ] && \
 	curl -i http://git.io \
-		-F "url=https://github.com/asaaki/mix-edip/releases/download/v$(VERSION)/edip-$(VERSION).ez" \
-		-F "code=edip-$(VERSION).ez" || \
+		-F "url=https://github.com/asaaki/mix-edib/releases/download/v$(VERSION)/edib-$(VERSION).ez" \
+		-F "code=edib-$(VERSION).ez" || \
 	echo "No version set. (VERSION=x.y.z)"
 
 todos:

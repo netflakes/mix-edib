@@ -1,0 +1,81 @@
+defmodule EDIBOptionsTest do
+  use Pavlov.Case
+  import Pavlov.Syntax.Expect
+
+  describe "EDIB.Options" do
+    describe "from_cli_arguments/1" do
+      context "with empty arguments" do
+        let :empty_args,   do: []
+        let :result_tuple, do: EDIB.Options.from_cli_arguments(empty_args)
+        let :result_ok,    do: result_tuple |> elem(0)
+        let :options,      do: result_tuple |> elem(1)
+        subject do: options |> Map.from_struct # structs have no has_key?/2
+
+        it "is ok" do
+          expect result_ok |> to_eq(:ok)
+        end
+
+        it "returns option struct" do
+          is_expected |> to_have_key(:silent)
+          is_expected |> to_have_key(:writer)
+          is_expected |> to_have_key(:artifact_config)
+        end
+      end
+
+      context "default settings" do
+        let :empty_args,   do: []
+        let :result_tuple, do: EDIB.Options.from_cli_arguments(empty_args)
+        let :options,      do: result_tuple |> elem(1)
+        subject do: options.silent
+
+        describe ".silent" do
+          it is_expected |> to_eq(false)
+        end
+
+        describe ".writer" do
+          let :prefix_writer, do: &EDIB.Utils.PrefixWriter.write/1
+          subject do: options.writer
+          it is_expected |> to_eq(prefix_writer)
+        end
+
+        describe ".artifact_config" do
+          subject do: options.artifact_config
+          it is_expected |> to_be_truthy
+        end
+      end
+
+      context "with -s/--silent" do
+        let :arguments,    do: ["-s"] # OptionParser setup should convert this to `--silent`
+        let :result_tuple, do: EDIB.Options.from_cli_arguments(arguments)
+        let :options,      do: result_tuple |> elem(1)
+        subject do: options.silent
+
+        describe ".silent" do
+          it is_expected |> to_be_true
+        end
+
+        describe ".writer => LogWriter" do
+          let :prefix_writer, do: &EDIB.Utils.LogWriter.write/1
+          subject do: options.writer
+          it is_expected |> to_eq(prefix_writer)
+        end
+      end
+
+      context "error cases" do
+        describe "on Artifact.from_cli_options/1 failure" do
+          let :error_result, do: {:error, "should bubble up"}
+
+          before :each do
+            allow(EDIB.BuildConfig.Artifact, [:no_link, :passthrough])
+            |> to_receive(from_cli_options: fn(_) -> error_result end)
+            :ok
+          end
+
+          it "propagates the error" do
+            expect EDIB.Options.from_cli_arguments([]) |> to_eq(error_result)
+          end
+        end
+      end
+    end
+  end
+end
