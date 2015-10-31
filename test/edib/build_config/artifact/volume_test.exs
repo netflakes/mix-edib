@@ -1,6 +1,6 @@
 defmodule EDIBBuildConfigArtifactVolumeTest do
   use Pavlov.Case
-  import Pavlov.Syntax.Expect
+  # import Pavlov.Syntax.Expect
 
   describe "EDIB.BuildConfig.Artifact.Volume" do
     # describe "new/2" do
