@@ -1,8 +1,8 @@
 defmodule EDIB.Defaults do
   @moduledoc false
 
-  def edib_version,               do: "0.4.3"
-  def edib_tool,                  do: "asaaki/edib-tool:#{edib_version}"
+  def edib_version,               do: "1.0"
+  def edib_tool,                  do: "edib/edib-tool:#{edib_version}"
   def tarball_dir_name,           do: "tarballs"
 
   # $HOME should be set, or fallback to a tmp dir:
