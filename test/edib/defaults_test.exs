@@ -5,13 +5,13 @@ defmodule EDIBDefaultsTest do
   describe "EDIB.Defaults" do
     describe "edib_version/0" do
       it "returns the current default version" do
-        expect EDIB.Defaults.edib_version |> to_eq "1.0"
+        expect EDIB.Defaults.edib_version |> to_eq "1.1"
       end
     end
 
     describe "edib_tool/0" do
       it "returns the current default image" do
-        expect EDIB.Defaults.edib_tool |> to_eq "edib/edib-tool:1.0"
+        expect EDIB.Defaults.edib_tool |> to_eq "edib/edib-tool:1.1"
       end
     end
 

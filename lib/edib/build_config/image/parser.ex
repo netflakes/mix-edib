@@ -80,10 +80,7 @@ defmodule EDIB.BuildConfig.Image.Parser do
     {:ok, struct(image_config, tarball: tarball_file)}
   end
 
-  defp parse_line("IMAGE_NAME " <> tagged_name, image_config) do
-    # TODO: Eventually this compound will go away and
-    #       the pure name w/o tag will be left
-    name = tagged_name |> String.split(":") |> hd
+  defp parse_line("IMAGE_NAME " <> name, image_config) do
     {:ok, struct(image_config, name: name)}
   end
 
