@@ -10,6 +10,8 @@ defmodule EDIB.BuildConfig.Artifact.Builder do
     |> set_edib_tool
     |> set_settings
     |> set_volumes
+    |> set_priv_flag
+    |> set_rm_flag
     |> set_docker_command
     |> return_command
   end
@@ -30,6 +32,23 @@ defmodule EDIB.BuildConfig.Artifact.Builder do
     {:ok, config, [Volumes.to_docker_options(volumes) | command_list]}
   end
   defp set_volumes(error), do: error
+
+  defp set_priv_flag({:ok, %{privileged: priv_flag} = config, command_list}) do
+    {:ok, config, [ maybe_set_priv_flag(priv_flag) | command_list]}
+  end
+  defp set_priv_flag(error), do: error
+
+  defp maybe_set_priv_flag(true), do: "--privileged"
+  defp maybe_set_priv_flag(false), do: ""
+
+  defp set_rm_flag({:ok, %{rm: rm_flag} = config, command_list}) do
+    {:ok, config, [ maybe_set_rm_flag(rm_flag) | command_list]}
+  end
+  defp set_rm_flag(error), do: error
+
+  defp maybe_set_rm_flag(true), do: "--rm"
+  defp maybe_set_rm_flag(false), do: ""
+
 
   defp set_docker_command({:ok, config, command_list}) do
     {:ok, config, [Defaults.docker_run | command_list]}
