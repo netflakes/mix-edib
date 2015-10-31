@@ -71,7 +71,7 @@ defmodule EDIBDefaultsTest do
 
     describe "docker_run_privileged/0" do
       it "returns the current docker privileged flag default" do
-        expect EDIB.Defaults.docker_run_privileged |> to_be_true
+        expect EDIB.Defaults.docker_run_privileged |> to_eq false
       end
     end
 
