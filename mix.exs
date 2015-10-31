@@ -11,11 +11,18 @@ defmodule EDIB.Mixfile do
       name:          "edib",
       version:       @version,
       elixir:        "~> 1.0",
-      description:   description,
-      docs:          &docs/0,
-      package:       package,
       deps:          deps,
-      test_coverage: [tool: ExCoveralls]
+      description:   description,
+      package:       package,
+      source_url:    "https://github.com/edib-tool/mix-edib",
+      homepage_url:  "http://hexdocs.pm/mix-edib",
+      docs:          &docs/0,
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [
+        "coveralls": :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test
+      ]
     ]
   end
 
@@ -54,14 +61,15 @@ defmodule EDIB.Mixfile do
 
   defp deps do
     [
-      {:ex_doc, "~> 0.10", only: :docs},
-      {:earmark, "~> 0.1", only: :docs},
+      {:dogma, "~> 0.0.11", only: :dev},
       {:test_times, "~> 1.0", only: :test},
       # {:pavlov, "~> 0.2", only: :test},
       # ^-- 0.2.3 has no subject support, therefore:
       {:pavlov, github: "sproutapp/pavlov", only: :test},
       {:excoveralls, "~> 0.4", only: :test},
-      {:dogma, "~> 0.0.11", only: :dev}
+      {:ex_doc, "~> 0.10", only: :docs},
+      {:earmark, "~> 0.1", only: :docs},
+      {:inch_ex, "~> 0.4", only: :docs},
     ]
   end
 end
