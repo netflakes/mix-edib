@@ -68,13 +68,13 @@ Adn don't forget to add `exrm` to your project:
     mix edib --name <NAME>
     mix edib -n <NAME>
 
-    # Set a specific tag for the docker image.
-    mix edib --tag <TAG>
-    mix edib -t <TAG>
-
     # Set only a specific prefix for the docker image name (default: local).
     mix edib --prefix <PREFIX>
     mix edib -p <PREFIX>
+
+    # Set a specific tag for the docker image.
+    mix edib --tag <TAG>
+    mix edib -t <TAG>
 
     # Silence build output of EDIB (will be logged to `.edib.log` instead).
     mix edib --silent
