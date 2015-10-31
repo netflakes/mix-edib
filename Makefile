@@ -14,3 +14,10 @@ gitio:
 		-F "url=https://github.com/asaaki/mix-edip/releases/download/v$(VERSION)/edip-$(VERSION).ez" \
 		-F "code=edip-$(VERSION).ez" || \
 	echo "No version set. (VERSION=x.y.z)"
+
+todos:
+	@find `pwd` \
+		-type f \
+		\( -name "*.ex" -o -name "*.exs" \) \
+		-exec \
+			grep -H -n -A1 --color=always -E "FIXME|NOTE|TODO|WIP|WTF|XXX" {} +

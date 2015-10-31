@@ -1,100 +1,81 @@
-defmodule OptionsTest do
-  use ExUnit.Case
+defmodule EdipOptionsTest do
+  use Pavlov.Case
+  import Pavlov.Syntax.Expect
 
-  alias Edip.Options
+  describe "Edip.Options" do
+    describe "from_cli_arguments/1" do
+      context "with empty arguments" do
+        let :empty_args,   do: []
+        let :result_tuple, do: Edip.Options.from_cli_arguments(empty_args)
+        let :result_ok,    do: result_tuple |> elem(0)
+        let :options,      do: result_tuple |> elem(1)
+        subject do: options |> Map.from_struct # structs have no has_key?/2
 
-  test "degenerate options string (defaults)" do
-    parsed = Options.from_args([])
+        it "is ok" do
+          expect result_ok |> to_eq(:ok)
+        end
 
-    assert parsed == %Options{}
-    assert parsed.package == %Options.Package{}
-    assert parsed.writer == &Edip.Utils.PrefixWriter.write/1
-    assert parsed.mappings == []
-  end
+        it "returns option struct" do
+          is_expected |> to_have_key(:silent)
+          is_expected |> to_have_key(:writer)
+          is_expected |> to_have_key(:artifact_config)
+        end
+      end
 
-  test "package -- name option" do
-    parsed = Options.from_args(["--name", "foo"])
+      context "default settings" do
+        let :empty_args,   do: []
+        let :result_tuple, do: Edip.Options.from_cli_arguments(empty_args)
+        let :options,      do: result_tuple |> elem(1)
+        subject do: options.silent
 
-    %Options{package: pkg_options} = parsed
-    assert pkg_options.name == "foo"
+        describe ".silent" do
+          it is_expected |> to_eq(false)
+        end
 
-    # Test same option in alias form
-    parsed = Options.from_args(["-n", "pfoo"])
+        describe ".writer" do
+          let :prefix_writer, do: &Edip.Utils.PrefixWriter.write/1
+          subject do: options.writer
+          it is_expected |> to_eq(prefix_writer)
+        end
 
-    %Options{package: pkg_options} = parsed
-    assert pkg_options.name == "pfoo"
-  end
+        describe ".artifact_config" do
+          subject do: options.artifact_config
+          it is_expected |> to_be_truthy
+        end
+      end
 
-  test "package -- tag option" do
-    parsed = Options.from_args(["--tag", "tagged"])
+      context "with -s/--silent" do
+        let :arguments,    do: ["-s"] # OptionParser setup should convert this to `--silent`
+        let :result_tuple, do: Edip.Options.from_cli_arguments(arguments)
+        let :options,      do: result_tuple |> elem(1)
+        subject do: options.silent
 
-    %Options{package: pkg_options} = parsed
-    assert pkg_options.tag == "tagged"
+        describe ".silent" do
+          it is_expected |> to_be_true
+        end
 
-    # Test same option in alias form
-    parsed = Options.from_args(["-t", "taggeddy"])
+        describe ".writer => LogWriter" do
+          let :prefix_writer, do: &Edip.Utils.LogWriter.write/1
+          subject do: options.writer
+          it is_expected |> to_eq(prefix_writer)
+        end
+      end
 
-    %Options{package: pkg_options} = parsed
-    assert pkg_options.tag == "taggeddy"
-  end
+      context "error cases" do
+        describe "on Artifact.from_cli_options/1 failure" do
+          let :error_result, do: {:error, "should bubble up"}
 
-  test "package -- prefix option" do
-    parsed = Options.from_args(["--prefix", "prefoo"])
+          before :each do
+            allow(Edip.BuildConfig.Artifact, [:no_link, :passthrough])
+            |> to_receive(from_cli_options: fn(_) -> error_result end)
+            :ok
+          end
 
-    %Options{package: pkg_options} = parsed
-    assert pkg_options.prefix == "prefoo"
-
-    # Test same option in alias form
-    parsed = Options.from_args(["-p", "pfoo"])
-
-    %Options{package: pkg_options} = parsed
-    assert pkg_options.prefix == "pfoo"
-  end
-
-  test "writer -- silent option" do
-    parsed = Options.from_args(["--silent", true])
-
-    %Options{writer: writer} = parsed
-    assert writer == &Edip.Utils.LogWriter.write/1
-
-    # Test same option in alias form
-    parsed = Options.from_args(["-s"])
-
-    %Options{writer: writer} = parsed
-    assert writer == &Edip.Utils.LogWriter.write/1
-  end
-
-  test "mappings -- basic mapping" do
-    parsed = Options.from_args(["--mapping", "/from/a/vol:/to/a/vol"])
-
-    %Options{mappings: mappings} = parsed
-    assert length(mappings) == 1
-
-    [mapping|[]] = mappings
-    assert mapping == %Options.Mapping{from: "/from/a/vol", to: "/to/a/vol"}
-  end
-
-  test "mappings -- mapping with options" do
-    parsed = Options.from_args(["--mapping", "/from/a/vol:/to/a/vol:ro"])
-
-    %Options{mappings: mappings} = parsed
-    assert length(mappings) == 1
-
-    [mapping|[]] = mappings
-    assert mapping == %Options.Mapping{from: "/from/a/vol", to: "/to/a/vol", options: "ro"}
-  end
-
-  test "mappings -- multiple mappings" do
-    %Options{mappings: mappings} = [
-      "--mapping", "/from/a/vol:/to/a/vol",
-      "--mapping", "/from/another/vol:/to/another/vol"
-    ]
-    |> Options.from_args
-
-    assert length(mappings) == 2
-
-    [mapping1|[mapping2]] = mappings
-    assert mapping1 == %Options.Mapping{from: "/from/a/vol", to: "/to/a/vol"}
-    assert mapping2 == %Options.Mapping{from: "/from/another/vol", to: "/to/another/vol"}
+          it "propagates the error" do
+            expect Edip.Options.from_cli_arguments([]) |> to_eq(error_result)
+          end
+        end
+      end
+    end
   end
 end

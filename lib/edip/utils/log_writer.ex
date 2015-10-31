@@ -1,7 +1,7 @@
 defmodule Edip.Utils.LogWriter do
-  def write(data) do
-    File.write(log_file, data, [:append])
-  end
+  @moduledoc false
 
-  def log_file, do: System.cwd! <> "/.edip.log"
+  def write(data), do: File.write(log_file, data, [:append])
+
+  def log_file, do: System.cwd! <> "/.edib.log"
 end

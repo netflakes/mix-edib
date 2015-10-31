@@ -1,71 +1,76 @@
-defmodule Edip.Options.Package do
-  defstruct name:   nil,
-            tag:    nil,
-            prefix: nil
-end
-
-defmodule Edip.Options.Mapping do
-  defstruct from: nil,
-            to:   nil,
-            options: nil
-end
-
 defmodule Edip.Options do
-  alias Edip.Options.Package
-  alias Edip.Options.Mapping
+  @moduledoc false
 
-  @option_aliases [n: :name, t: :tag, p: :prefix, s: :silent, m: :mapping]
-  @option_stricts [
-    name:    :string,
-    tag:     :string,
-    prefix:  :string,
-    silent:  :boolean,
-    mapping: [:string, :keep]
+  alias Edip.BuildConfig.Artifact
+
+  defstruct silent:          false,
+            writer:          &Edip.Utils.PrefixWriter.write/1,
+            artifact_config: %Artifact{}
+
+  @option_aliases [
+    h: :hex,
+    k: :ssh_keys,
+    n: :name,
+    p: :prefix,
+    s: :silent,
+    t: :tag,
+    v: :volume
   ]
 
-  defstruct silent:   false,
-            writer:   &Edip.Utils.PrefixWriter.write/1,
-            package:  %Package{},
-            mappings: []
+  @option_stricts [
+    edip:       :string,
+    hex:        :boolean,          # shortcut for ~/.hex/packages directory
+    npm:        :boolean,          # shortcut for ~/.npm directory
+    name:       :string,
+    no_rm:      :boolean,          # `---no-rm`
+    prefix:     :string,
+    privileged: :boolean,
+    silent:     :boolean,
+    ssh_keys:   :boolean,          # `--ssh-keys`; shortcut for ~/.ssh directory
+    tag:        :string,
+    test:       :boolean,          # TODO: Not yet implemented!
+    volume:     [:string, :keep]
+  ]
 
-  def from_args(args) do
-    valid_options = parse_args(args)
+  @option_parser_settings [aliases: @option_aliases, strict: @option_stricts]
 
-    writer  = writer(valid_options)
-    package = struct(Package, valid_options)
-    mappings = valid_options[:mappings]
-    struct(__MODULE__, Dict.merge(valid_options, [writer: writer, package: package, mappings: mappings]))
+  def from_cli_arguments(cli_arguments) do
+    cli_arguments
+    |> parse_cli_arguments
+    |> set_writer
+    |> set_artifact_config
+    |> consolidate_options
   end
 
-  defp parse_args(args) do
-    {parsed_opts, _, _} = OptionParser.parse(args, aliases: @option_aliases, strict: @option_stricts)
-    |> consolidate_mappings
+  ### Internals
 
-    parsed_opts
+  defp parse_cli_arguments(cli_arguments) do
+    cli_arguments
+    |> OptionParser.parse(@option_parser_settings)
+    |> elem(0)
   end
 
-  defp writer(valid_options) do
-    case Dict.get(valid_options, :silent) do
-      true -> &Edip.Utils.LogWriter.write/1
-      _    -> &Edip.Utils.PrefixWriter.write/1
-    end
+  defp set_writer(cli_options) do
+    silent = Dict.get(cli_options, :silent, false)
+    Dict.merge(cli_options, writer: log_writer(silent))
   end
 
-  defp consolidate_mappings({parsed, argv, errors}) do
-    mappings = parsed
-    |> Keyword.get_values(:mapping)
-    |> Enum.map(&create_valid_mapping/1)
+  defp log_writer(true), do: &Edip.Utils.LogWriter.write/1
+  defp log_writer(_), do: &Edip.Utils.PrefixWriter.write/1
 
-    parsed = parsed |> Keyword.delete(:mapping) |> Keyword.merge(mappings: mappings)
-
-    {parsed, argv, errors}
+  defp set_artifact_config(options) do
+    options
+    |> Artifact.from_cli_options
+    |> maybe_set_artifact_config(options)
   end
 
-  defp create_valid_mapping(mapping_opt) do
-    case mapping_opt |> String.split(":") do
-      [from, to] -> %Mapping{from: from, to: to}
-      [from, to, options] -> %Mapping{from: from, to: to, options: options}
-      _ -> raise "Volume mapping is /from/vol:/to/vol or /from/vol/:/to/vol:access_option"
-    end
-  end
+  defp maybe_set_artifact_config({:ok, config}, options),
+    do: {:ok, Dict.merge(options, artifact_config: config)}
+  defp maybe_set_artifact_config(error, _),
+    do: error
+
+  defp consolidate_options({:ok, options}),
+    do: {:ok, struct(__MODULE__, options)}
+  defp consolidate_options(error),
+    do: error
 end

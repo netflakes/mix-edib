@@ -20,8 +20,10 @@ defmodule Mix.Tasks.Readme do
   """
 
   def run([]) do
-    Mix.Task.run "compile", []
-    File.read!("README.md")
+    Mix.Task.run("compile", [])
+
+    "README.md"
+    |> File.read!
     |> remove_old_doc
     |> add_updated_doc
     |> write_back
@@ -73,7 +75,7 @@ defmodule Mix.Tasks.Readme do
   defp doc_for("", name) do
     names = String.split(name, ".")
     [ func | modules ] = Enum.reverse(names)
-    module = Enum.reverse(modules) |> Enum.join(".")
+    module = modules |> Enum.reverse |> Enum.join(".")
     module = String.to_atom("Elixir." <> module)
     func   = String.to_atom(func)
 

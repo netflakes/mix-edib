@@ -1,4 +1,6 @@
 defmodule Edip.Utils.PrefixWriter do
+  @moduledoc false
+
   def write(data) do
     data
     |> prefix_chunks
@@ -11,6 +13,8 @@ defmodule Edip.Utils.PrefixWriter do
     |> Enum.reduce("", &prefix_chunk/2)
   end
 
-  defp prefix_chunk("", result),    do: result
-  defp prefix_chunk(chunk, result), do: result <> "#{IO.ANSI.magenta}|#{IO.ANSI.reset} #{chunk}\n"
+  defp prefix_chunk("", result),
+    do: result
+  defp prefix_chunk(chunk, result),
+    do: result <> "#{IO.ANSI.magenta}|#{IO.ANSI.reset} #{chunk}\n"
 end

@@ -1,5 +1,7 @@
 defmodule Mix.Tasks.Edip.Image do
+  @moduledoc false
+
   use Mix.Task
 
-  def run(args), do: Edip.Runner.run(args)
+  defdelegate run(args), to: Edip.Runner
 end
