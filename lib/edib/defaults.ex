@@ -17,7 +17,7 @@ defmodule EDIB.Defaults do
   def docker_import,              do: "#{docker_cmd} import"
   def docker_tag,                 do: "#{docker_cmd} tag --force"
 
-  def docker_run_privileged,      do: true
+  def docker_run_privileged,      do: false
   def docker_run_no_rm,           do: false
 
   # read-only, to prevent accidental writes:
