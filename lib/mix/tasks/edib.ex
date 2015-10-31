@@ -4,34 +4,34 @@ defmodule Mix.Tasks.Edib do
 
   ## Install
 
-  ### Project dependency
-
-  In mix.exs:
-
-      defp deps do
-        [
-          {:exrm, "~> 0.19"},
-          {:edib, "~> 0.5.0"}
-        ]
-      end
-
-  Then run:
-
-      mix deps.get edib && mix deps.compile edib
-
   ### mix archive
 
   Just run this and confirm:
 
       mix archive.install http://git.io/edib-0.5.0.ez
 
-  Adn don't forget to add `exrm` to your project:
+  And don't forget to add `exrm` to your project:
 
       defp deps do
         [
           {:exrm, "~> 0.19"}
         ]
       end
+
+  ### Or as project dependency
+
+  In mix.exs:
+
+      defp deps do
+        [
+          {:exrm, "~> 0.19"},
+          {:edib, "~> 0.5"}
+        ]
+      end
+
+  Then run:
+
+      mix deps.get edib && mix deps.compile edib
 
   ## Usage
 
@@ -43,19 +43,19 @@ defmodule Mix.Tasks.Edib do
 
   ## Options
 
-      # Override the (repository) name of the docker image.
+      # Override the (repository) name of the docker image
       mix edib --name <NAME>
       mix edib -n <NAME>
 
-      # Set only a specific prefix for the docker image name (default: local).
+      # Set only a specific prefix for the docker image name (default: local)
       mix edib --prefix <PREFIX>
       mix edib -p <PREFIX>
 
-      # Set a specific tag for the docker image.
+      # Set a specific tag for the docker image
       mix edib --tag <TAG>
       mix edib -t <TAG>
 
-      # Silence build output of EDIB (will be logged to `.edib.log` instead).
+      # Silence build output of EDIB (will be logged to `.edib.log` instead)
       mix edib --silent
       mix edib -s
 
@@ -66,10 +66,31 @@ defmodule Mix.Tasks.Edib do
       mix edib --mapping <FROM>:<TO>[:<OPTION>]
       mix edib -m <FROM>:<TO>[:<OPTION>]
 
-  To pull dependencies stored in private github repositories you will need to
-  make your SSH keys accessible from the container doing the build:
+  For common cases there are some mapping shorthands:
 
-      mix edib --mapping /path/to/home/.ssh:/root/ssh.
+      # Include the host user's SSH keys for private GitHub repositories:
+      mix edib --ssh-keys
+
+      # Include host user's .hex/packages cache
+      #
+      # Can improve build times when the host's .hex cache is available for
+      # every build run (tip for Travis CI: use their directory caching)
+      mix edib --hex
+
+      # Include host user's .npm package cache
+      #
+      # Can improve build times when the host's .npm cache is available for
+      # every build run (tip for Travis CI: use their directory caching)
+      mix edib --npm
+
+  Docker flags (mostly for debug purposes):
+
+      # Run the build step privileged
+      mix edib --privileged
+
+      # Do not remove intermediate containers on build runs
+      mix edib --no-rm
+
   """
 
   @shortdoc "Create a Docker image of your app."
