@@ -26,5 +26,5 @@ after_script:
   - MIX_ENV=docs mix inch.report
 
 after_success:
-  - mix compile
-  - mix coveralls.travis
+  - mix dogma
+  - MIX_ENV=test mix coveralls.travis
