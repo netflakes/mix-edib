@@ -62,7 +62,6 @@ defmodule EDIB.Mixfile do
   defp deps do
     [
       {:dogma, "~> 0.0.11", only: :dev},
-      {:test_times, "~> 1.0", only: :test},
       # {:pavlov, "~> 0.2", only: :test},
       # ^-- 0.2.3 has no subject support, therefore:
       {:pavlov, github: "sproutapp/pavlov", only: :test},
