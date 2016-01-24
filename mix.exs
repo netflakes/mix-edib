@@ -48,23 +48,24 @@ defmodule EDIB.Mixfile do
       maintainers:  ["Christoph Grabo"],
       licenses:     ["MIT"],
       links: %{
-        "GitHub": "https://github.com/edib-tool/mix-edib",
-        "Docs":   "http://hexdocs.pm/edib",
-        "About":  "https://github.com/edib-tool/elixir-docker-image-builder"
+        "GitHub" => "https://github.com/edib-tool/mix-edib",
+        "Docs"   => "http://hexdocs.pm/edib",
+        "About"  => "https://github.com/edib-tool/elixir-docker-image-builder"
       }
     ]
   end
 
   defp deps do
     [
-      {:cmark, "~> 0.6", only: [:docs]},
+      {:cmark, "~> 0.6", only: [:docs, :ci]},
       {:credo, "~> 0.3.0-dev2", only: [:lint, :ci]},
       {:dogma, "~> 0.0.11", only: [:lint, :ci]},
-      {:espec, "~> 0.8", only: [:dev, :test, :ci]},
-      {:ex_doc, "~> 0.11", only: [:docs]},
-      {:excoveralls, "~> 0.4", only: [:dev, :test, :ci]},
-      {:inch_ex, "~> 0.5", only: [:ci]},
-      {:poison, "~> 2.0", only: [:dev, :test, :lint, :ci], override: true}
+      {:espec, "~> 0.8", only: [:test, :ci]},
+      {:ex_doc, "~> 0.11", only: [:docs, :ci]},
+      {:excoveralls, "~> 0.4", only: [:test, :ci]},
+      {:inch_ex, "~> 0.5", only: [:docs, :ci]},
+      {:poison, "~> 2.0", only: [:test, :docs, :lint, :ci], override: true},
+      {:dialyxir, "~> 0.3", only: [:dev]},
     ]
   end
 end
