@@ -3,28 +3,20 @@ sudo: false
 language: elixir
 
 elixir:
-  - 1.0.5
+  - 1.2.0
 
 otp_release:
-  - 17.5
-
-matrix:
-  include:
-    - elixir: 1.1.0
-      otp_release: 18.0
-    - elixir: 1.1.0
-      otp_release: 18.1
-    - elixir: 1.1.1
-      otp_release: 18.0
-    - elixir: 1.1.1
-      otp_release: 18.1
+  - 18.2
 
 before_install:
   - kerl list installations
-
-after_script:
-  - MIX_ENV=docs mix inch.report
+  - export MIX_ENV=ci
 
 after_success:
+  - mix coveralls.travis
+
+after_script:
+  - mix inch.report
   - mix dogma
-  - MIX_ENV=test mix coveralls.travis
+  - mix credo --strict
+  - mix hex.outdated
