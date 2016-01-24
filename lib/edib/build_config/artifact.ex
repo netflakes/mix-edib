@@ -11,6 +11,7 @@ defmodule EDIB.BuildConfig.Artifact do
 
   def from_cli_options(options),
     do: EDIB.BuildConfig.Artifact.Parser.from_cli_options(options)
+
   def to_command(artifact_config),
     do: EDIB.BuildConfig.Artifact.Builder.build(artifact_config)
 end

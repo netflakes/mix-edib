@@ -10,6 +10,7 @@ defmodule EDIB.BuildConfig.Image do
 
   def from_config_file(config_file),
     do: EDIB.BuildConfig.Image.Parser.parse_file(config_file)
+
   def to_commands(image_config),
     do: EDIB.BuildConfig.Image.Builder.build(image_config)
 end
