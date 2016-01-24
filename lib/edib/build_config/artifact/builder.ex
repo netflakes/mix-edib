@@ -2,11 +2,12 @@ defmodule EDIB.BuildConfig.Artifact.Builder do
   @moduledoc false
 
   alias EDIB.Defaults
-  alias EDIB.BuildConfig.Artifact.ImageSettings
-  alias EDIB.BuildConfig.Artifact.Volumes
+  alias EDIB.BuildConfig.Artifact
+  alias EDIB.BuildConfig.Artifact.{ImageSettings, Volumes}
 
   def build(artifact_config) do
-    {:ok, artifact_config, []}
+    artifact_config
+    |> maybe_artifact_config
     |> set_edib_tool
     |> set_settings
     |> set_volumes
@@ -17,6 +18,11 @@ defmodule EDIB.BuildConfig.Artifact.Builder do
   end
 
   ### Internals
+
+  defp maybe_artifact_config(%Artifact{} = artifact_config),
+    do: {:ok, artifact_config, []}
+  defp maybe_artifact_config(_),
+    do: {:error, "Not a valid artifact config given"}
 
   defp set_edib_tool({:ok, config, command_list}) do
     {:ok, config, [Defaults.edib_tool | command_list]}

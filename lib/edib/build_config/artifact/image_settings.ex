@@ -20,36 +20,40 @@ defmodule EDIB.BuildConfig.Artifact.ImageSettings do
     ~s(-e "#{setting}")
   end
 
-  defp package_name({options, vars}) do
-    options |> Dict.get(:name) |> maybe_package_name(options, vars)
-  end
+  defp package_name({%{name: name} = options, vars}),
+    do: maybe_package_name(name, options, vars)
+  defp package_name({options, vars}),
+    do: {options, vars}
 
   defp maybe_package_name(nil, options, vars),
     do: {options, vars}
   defp maybe_package_name(name, options, vars),
     do: {options, ["RELEASE_NAME=#{name}" | vars]}
 
-  defp package_tag({options, vars}) do
-    options |> Dict.get(:tag) |> maybe_package_tag(options, vars)
-  end
+  defp package_tag({%{tag: tag} = options, vars}),
+    do: maybe_package_tag(tag, options, vars)
+  defp package_tag({options, vars}),
+    do: {options, vars}
 
   defp maybe_package_tag(nil, options, vars),
     do: {options, vars}
   defp maybe_package_tag(tag, options, vars),
     do: {options, ["RELEASE_TAG=#{tag}" | vars]}
 
-  defp package_prefix({options, vars}) do
-    options |> Dict.get(:prefix) |> maybe_package_prefix(options, vars)
-  end
+  defp package_prefix({%{prefix: prefix} = options, vars}),
+    do: maybe_package_prefix(prefix, options, vars)
+  defp package_prefix({options, vars}),
+    do: {options, vars}
 
   defp maybe_package_prefix(nil, options, vars),
     do: {options, vars}
   defp maybe_package_prefix(prefix, options, vars),
     do: {options, ["RELEASE_PREFIX=#{prefix}" | vars]}
 
-  defp with_test_run({options, vars}) do
-    options |> Dict.get(:test, false) |> maybe_with_test_run(options, vars)
-  end
+  defp with_test_run({%{test: test} = options, vars}),
+    do: maybe_with_test_run(test, options, vars)
+  defp with_test_run({options, vars}),
+    do: {options, vars}
 
   defp maybe_with_test_run(true, options, vars),
     do: {options, ["TEST=true" | vars]}
