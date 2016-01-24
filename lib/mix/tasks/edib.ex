@@ -10,28 +10,13 @@ defmodule Mix.Tasks.Edib do
 
       mix archive.install http://git.io/edib-0.5.1.ez
 
-  And don't forget to add `exrm` to your project:
-
-      defp deps do
-        [
-          {:exrm, "~> 0.19"}
-        ]
-      end
-
-  ### Or as project dependency
-
-  In mix.exs:
+  Don't forget to add `exrm` to your project:
 
       defp deps do
         [
           {:exrm, "~> 0.19"},
-          {:edib, "~> 0.5"}
         ]
       end
-
-  Then run:
-
-      mix deps.get edib && mix deps.compile edib
 
   ## Usage
 

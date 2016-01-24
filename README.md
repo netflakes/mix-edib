@@ -37,7 +37,7 @@ Just run this and confirm:
 
     mix archive.install http://git.io/edib-0.5.1.ez
 
-And don't forget to add `exrm` to your project:
+Don't forget to add `exrm` to your project:
 
     defp deps do
       [
