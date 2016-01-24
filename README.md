@@ -106,6 +106,7 @@ Include host user's .npm package cache
 
 Can improve build times when the host's .npm cache is available for
 every build run (tip for Travis CI: use their directory caching)
+
     mix edib --npm
 
 ### Docker related
