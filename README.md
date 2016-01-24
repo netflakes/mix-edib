@@ -21,7 +21,6 @@ A mix task for [EDIB (elixir docker image builder)](https://github.com/edib-tool
 
 - [Install](#install)
   - [mix archive](#mix-archive)
-  - [Or as project dependency](#or-as-project-dependency)
 - [Usage](#usage)
 - [Help](#help)
 - [Options](#options)
@@ -34,8 +33,6 @@ EDIB creates a docker image of your application release.
 
 ### mix archive
 
-**This is the preferred method.**
-
 Just run this and confirm:
 
     mix archive.install http://git.io/edib-0.5.1.ez
@@ -44,24 +41,9 @@ And don't forget to add `exrm` to your project:
 
     defp deps do
       [
-        {:exrm, "~> 0.19"}
-      ]
-    end
-
-### Or as project dependency
-
-In mix.exs:
-
-    defp deps do
-      [
         {:exrm, "~> 0.19"},
-        {:edib, "~> 0.5"}
       ]
     end
-
-Then run:
-
-    mix deps.get edib && mix deps.compile edib
 
 ## Usage
 
