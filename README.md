@@ -1,5 +1,12 @@
 # EDIB mix task
 
+[![Hex.pm package version](https://img.shields.io/hexpm/v/edib.svg?style=flat-square)](https://hex.pm/packages/edib)
+[![Hex.pm package docs](https://img.shields.io/badge/hex-docs-orange.svg?style=flat-square)](http://hexdocs.pm/edib/)
+[![Hex.pm package license](https://img.shields.io/hexpm/l/edib.svg?style=flat-square)](https://github.com/edib-tool/mix-edib/blob/master/LICENSE)
+[![Build Status (master)](https://img.shields.io/travis/edib-tool/mix-edib/master.svg?style=flat-square)](https://travis-ci.org/edib-tool/mix-edib)
+[![Coverage Status (master)](https://img.shields.io/coveralls/edib-tool/mix-edib/master.svg?style=flat-square)](https://coveralls.io/r/edib-tool/mix-edib)
+[![Inline docs](http://inch-ci.org/github/edib-tool/mix-edib.svg?branch=master&style=flat-square)](http://inch-ci.org/github/edib-tool/mix-edib)
+
 A mix task for [EDIB (elixir docker image builder)](https://github.com/edib-tool/elixir-docker-image-builder).
 
 <!--
