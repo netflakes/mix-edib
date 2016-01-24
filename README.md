@@ -19,8 +19,7 @@ A mix task for [EDIB (elixir docker image builder)](https://github.com/edib-tool
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 ## TOC
 
-- [Install](#install)
-  - [mix archive](#mix-archive)
+- [Installation](#installation)
 - [Usage](#usage)
 - [Help](#help)
 - [Options](#options)
@@ -33,9 +32,7 @@ A mix task for [EDIB (elixir docker image builder)](https://github.com/edib-tool
 <!-- moduledoc: Mix.Tasks.Edib -->
 EDIB creates a docker image of your application release.
 
-## Install
-
-### mix archive
+## Installation
 
 Just run this and confirm:
 

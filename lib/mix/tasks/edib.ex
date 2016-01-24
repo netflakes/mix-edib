@@ -2,9 +2,7 @@ defmodule Mix.Tasks.Edib do
   @moduledoc """
   EDIB creates a docker image of your application release.
 
-  ## Install
-
-  ### mix archive
+  ## Installation
 
   Just run this and confirm:
 
