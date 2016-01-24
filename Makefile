@@ -16,8 +16,8 @@ gitio:
 
 ### README / DOCS
 
-toc:
-	@doctoc README.md --github --maxlevel 4 --title '## TOC'
+readme:
+	@mix readme
 
 ### TEST
 
