@@ -12,6 +12,8 @@ before_install:
   - kerl list installations
   - export MIX_ENV=ci
 
+script: mix espec
+
 after_success:
   - mix coveralls.travis
 
