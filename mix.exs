@@ -3,26 +3,21 @@ Code.eval_file "tasks/readme.exs"
 defmodule EDIB.Mixfile do
   use Mix.Project
 
-  @version "0.5.1"
+  @version "0.6.0-dev1"
 
   def project do
     [
       app:           :edib,
       name:          "edib",
       version:       @version,
-      elixir:        "~> 1.0",
+      elixir:        "~> 1.2",
       deps:          deps,
       description:   description,
       package:       package,
       source_url:    "https://github.com/edib-tool/mix-edib",
       homepage_url:  "http://hexdocs.pm/mix-edib",
       docs:          &docs/0,
-      test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: [
-        "coveralls": :test,
-        "coveralls.detail": :test,
-        "coveralls.post": :test
-      ]
+      test_coverage: [tool: ExCoveralls, test_task: "espec"],
     ]
   end
 
@@ -41,7 +36,7 @@ defmodule EDIB.Mixfile do
   defp docs do
     [
       extras:     ["README.md"],
-      main:       "extra-readme",
+      main:       "readme",
       source_ref: "v#{@version}",
       source_url: "https://github.com/edib-tool/mix-edib"
     ]
@@ -62,14 +57,14 @@ defmodule EDIB.Mixfile do
 
   defp deps do
     [
-      {:dogma, "~> 0.0.11", only: :dev},
-      # {:pavlov, "~> 0.2", only: :test},
-      # ^-- 0.2.3 has no subject support, therefore:
-      {:pavlov, github: "sproutapp/pavlov", only: :test},
-      {:excoveralls, "~> 0.4", only: :test},
-      {:ex_doc, "~> 0.10", only: :docs},
-      {:earmark, "~> 0.1", only: :docs},
-      {:inch_ex, "~> 0.4", only: :docs},
+      {:cmark, "~> 0.6", only: [:docs]},
+      {:credo, "~> 0.3.0-dev2", only: [:lint, :ci]},
+      {:dogma, "~> 0.0.11", only: [:lint, :ci]},
+      {:espec, "~> 0.8", only: [:dev, :test, :ci]},
+      {:ex_doc, "~> 0.11", only: [:docs]},
+      {:excoveralls, "~> 0.4", only: [:dev, :test, :ci]},
+      {:inch_ex, "~> 0.5", only: [:ci]},
+      {:poison, "~> 2.0", only: [:dev, :test, :lint, :ci], override: true}
     ]
   end
 end
