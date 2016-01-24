@@ -19,6 +19,11 @@ gitio:
 readme:
 	@mix readme
 
+docs: readme
+	MIX_ENV=docs mix docs
+
+doc: docs
+
 ### TEST
 
 spec:
