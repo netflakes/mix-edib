@@ -34,6 +34,8 @@ EDIB creates a docker image of your application release.
 
 ### mix archive
 
+**This is the preferred method.**
+
 Just run this and confirm:
 
     mix archive.install http://git.io/edib-0.5.1.ez
