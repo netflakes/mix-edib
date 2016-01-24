@@ -14,6 +14,11 @@ gitio:
 		-F "code=edib-$(VERSION).ez" || \
 	echo "No version set. (VERSION=x.y.z)"
 
+### README / DOCS
+
+toc:
+	@doctoc README.md --github --maxlevel 4 --title '## TOC'
+
 ### TEST
 
 spec:
