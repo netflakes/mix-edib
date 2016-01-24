@@ -27,7 +27,7 @@ doc: docs
 ### TEST
 
 spec:
-	@MIX_ENV=test mix espec --cover
+	@MIX_ENV=test mix espec --order --cover
 .PHONY: spec
 
 test: spec
