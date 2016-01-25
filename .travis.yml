@@ -8,6 +8,10 @@ elixir:
 otp_release:
   - 18.2
 
+cache:
+  directories:
+    - $HOME/.hex
+
 before_install:
   - kerl list installations
   - export MIX_ENV=ci
