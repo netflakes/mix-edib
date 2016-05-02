@@ -15,7 +15,8 @@ defmodule EDIB.Defaults do
   def docker_cmd,                 do: "docker"
   def docker_run,                 do: "#{docker_cmd} run"
   def docker_import,              do: "#{docker_cmd} import"
-  def docker_tag,                 do: "#{docker_cmd} tag --force"
+  def docker_tag,                 do: "#{docker_cmd} tag"
+  def tarball_command,            do: "gunzip -c"
 
   def docker_run_privileged,      do: false
   def docker_run_no_rm,           do: false

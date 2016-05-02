@@ -1,10 +1,8 @@
 defmodule EDIB.BuildConfig.Image.Builder do
   @moduledoc false
 
+  use EDIB.Defaults
   alias EDIB.BuildConfig.Image
-
-  @docker_import "docker import"
-  @docker_tag "docker tag --force"
 
   def build(image_config) do
     image_config
@@ -31,13 +29,13 @@ defmodule EDIB.BuildConfig.Image.Builder do
     do: error
 
   defp tarball_command(image_config) do
-    ~s(gunzip -c #{image_config.tarball_dir}/#{image_config.tarball})
+    ~s(#{Defaults.tarball_command} #{image_config.tarball_dir}/#{image_config.tarball})
   end
 
   defp docker_import_command(image_config) do
     import_settings = parse_import_settings(image_config.settings)
     tagged_name = tagged_name(image_config)
-    ~s(#{@docker_import} #{import_settings} - #{tagged_name})
+    ~s(#{Defaults.docker_import} #{import_settings} - #{tagged_name})
   end
 
   defp parse_import_settings(settings) when is_list(settings),
@@ -53,7 +51,7 @@ defmodule EDIB.BuildConfig.Image.Builder do
   defp image_tag_command({:ok, image_config, commands}) do
     tagged_name = tagged_name(image_config)
     latest = ~s(#{image_config.name}:latest)
-    command = ~s(#{@docker_tag} #{tagged_name} #{latest})
+    command = ~s(#{Defaults.docker_tag} #{tagged_name} #{latest})
     {:ok, image_config, commands ++ [command]}
   end
   defp image_tag_command(error),

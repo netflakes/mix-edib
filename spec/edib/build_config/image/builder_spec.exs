@@ -21,14 +21,14 @@ defmodule EDIBBuildConfigImageBuilderTest do
           }
         end
 
-        let :cat_command,
-          do: "cat #{tarball_dir}/#{tarball}"
+        let :tarball_command,
+          do: "gunzip -c #{tarball_dir}/#{tarball}"
         let :import_command,
           do: "docker import #{output_settings} - #{name}:#{tag}"
         let :cat_and_import,
-          do: "#{cat_command} | #{import_command}"
+          do: "#{tarball_command} | #{import_command}"
         let :tag_command,
-          do: "docker tag --force #{name}:#{tag} #{name}:latest"
+          do: "docker tag #{name}:#{tag} #{name}:latest"
 
         context "settings as string" do
           let :settings, do: "test-settings"
