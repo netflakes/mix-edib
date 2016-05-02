@@ -1,8 +1,8 @@
 defmodule EDIB.BuildConfig.Image.Builder do
   @moduledoc false
 
-  use EDIB.Defaults
   alias EDIB.BuildConfig.Image
+  alias EDIB.Defaults
 
   def build(image_config) do
     image_config
