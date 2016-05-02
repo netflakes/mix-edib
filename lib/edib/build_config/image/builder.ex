@@ -31,7 +31,7 @@ defmodule EDIB.BuildConfig.Image.Builder do
     do: error
 
   defp tarball_command(image_config) do
-    ~s(cat #{image_config.tarball_dir}/#{image_config.tarball})
+    ~s(gunzip -c #{image_config.tarball_dir}/#{image_config.tarball})
   end
 
   defp docker_import_command(image_config) do
