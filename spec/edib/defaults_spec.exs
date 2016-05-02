@@ -69,7 +69,13 @@ defmodule EDIBDefaultsSpec do
 
     describe "docker_tag/0" do
       it "returns the current docker tag command" do
-        expect(Defaults.docker_tag).to eql("docker tag --force")
+        expect(Defaults.docker_tag).to eql("docker tag")
+      end
+    end
+
+    describe "tarball_command/0" do
+      it "returns the current tarball streaming command" do
+        expect(Defaults.tarball_command).to eql("gunzip -c")
       end
     end
 
