@@ -16,7 +16,7 @@ defmodule EDIB.BuildConfig.Artifact.Volume do
 
   defp new(from, to, permissions) do
     %__MODULE__{
-      host_path: from,
+      host_path: sanitize_path(from),
       container_path: to,
       permissions: sanitize_permissions(permissions)
     }
@@ -26,6 +26,13 @@ defmodule EDIB.BuildConfig.Artifact.Volume do
     do: permissions
   defp sanitize_permissions(_),
     do: @default_permissions
+
+  defp sanitize_path(path) do
+    case :os.type() do
+      {:win32, _} -> "/" <> path |> String.replace("\\", "/") |> String.replace(":", "")
+      _ -> path
+    end
+  end
 
   def for_source(host_source_dir) do
     new(
