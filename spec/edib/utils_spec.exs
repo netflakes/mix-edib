@@ -61,7 +61,7 @@ defmodule EdibUtilsSpec do
       let :abort_fun,
         do: fn -> Utils.abort! end
 
-      let :result do
+      let :abort_result do
         try do
           abort_fun.()
         catch
@@ -71,7 +71,7 @@ defmodule EdibUtilsSpec do
       end
 
       it "exits the running process" do
-        expect(result).to be_true
+        expect(abort_result).to be_true
       end
     end
 

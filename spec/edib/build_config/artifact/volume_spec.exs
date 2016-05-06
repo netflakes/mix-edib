@@ -124,11 +124,11 @@ defmodule EDIBBuildConfigArtifactVolumeSpec do
     end
 
     describe "to_docker_option/1" do
-      let :volume, do: Volume.for_ssh_keys
+      let :volume_input, do: Volume.for_ssh_keys
       let :expected_result, do: ~s(-v "#{Defaults.host_ssh_dir}:/root/ssh:ro")
 
       it "returns a docker volume mapping string" do
-        mapping = Volume.to_docker_option(volume)
+        mapping = Volume.to_docker_option(volume_input)
         expect(mapping).to be_binary
         expect(mapping).to eql(expected_result)
       end
