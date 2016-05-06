@@ -3,7 +3,7 @@ Code.eval_file "tasks/readme.exs"
 defmodule EDIB.Mixfile do
   use Mix.Project
 
-  @version "0.6.0-dev1"
+  @version "0.6.0-dev2"
 
   def project do
     [
@@ -58,8 +58,8 @@ defmodule EDIB.Mixfile do
   defp deps do
     [
       {:cmark, "~> 0.6", only: [:docs, :ci]},
-      {:credo, "~> 0.3.3", only: [:lint, :ci]},
-      {:dogma, "~> 0.1.0", only: [:lint, :ci]},
+      {:credo, "~> 0.3", only: [:lint, :ci]},
+      {:dogma, "~> 0.1", only: [:lint, :ci]},
       {:espec, "~> 0.8", only: [:test, :ci]},
       {:ex_doc, "~> 0.11", only: [:docs, :ci]},
       {:excoveralls, "~> 0.5", only: [:test, :ci]},
