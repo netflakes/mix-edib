@@ -18,6 +18,7 @@ defmodule EDIB.Mixfile do
       homepage_url:  "http://hexdocs.pm/mix-edib",
       docs:          &docs/0,
       test_coverage: [tool: ExCoveralls, test_task: "espec"],
+      preferred_cli_env: [espec: :test],
     ]
   end
 
