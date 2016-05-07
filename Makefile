@@ -4,6 +4,9 @@ all:
 publish:
 	@mix hex.publish && MIX_ENV=docs mix hex.docs
 
+push:
+	@git push && git push --tags
+
 archive:
 	@mix compile && mix archive.build
 
