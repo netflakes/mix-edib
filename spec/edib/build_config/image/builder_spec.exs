@@ -26,7 +26,7 @@ defmodule EDIBBuildConfigImageBuilderTest do
         let :import_command,
           do: "docker import #{output_settings} - #{name}:#{tag}"
         let :cat_and_import,
-          do: "#{tarball_command} | #{import_command}"
+          do: ~s(sh -c "#{tarball_command} | #{import_command}")
         let :tag_command,
           do: "docker tag #{name}:#{tag} #{name}:latest"
 

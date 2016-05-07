@@ -22,7 +22,7 @@ defmodule EDIB.BuildConfig.Image.Builder do
   defp image_build_command({:ok, image_config, commands}) do
     tarball_command = tarball_command(image_config)
     docker_command = docker_import_command(image_config)
-    command = ~s(#{tarball_command} | #{docker_command})
+    command = ~s(sh -c "#{tarball_command} | #{docker_command}")
     {:ok, image_config, commands ++ [command]}
   end
   defp image_build_command(error),
