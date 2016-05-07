@@ -36,7 +36,7 @@ EDIB creates a docker image of your application release.
 
 Just run this and confirm:
 
-    mix archive.install https://git.io/edib-0.6.1.ez
+    mix archive.install https://git.io/edib-0.6.2.ez
 
 Don't forget to add `exrm` to your project:
 
