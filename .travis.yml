@@ -16,6 +16,9 @@ before_install:
   - kerl list installations
   - export MIX_ENV=ci
 
+before_script:
+  - patch -p1 < 0001-Remove-all-duplicate-funcs-when-assignment-present.patch
+
 script: mix espec
 
 after_success:

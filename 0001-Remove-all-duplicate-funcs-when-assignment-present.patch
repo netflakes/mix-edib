@@ -1,0 +1,36 @@
+From 06b683336e79e537afd25c17226be86363174c71 Mon Sep 17 00:00:00 2001
+From: Christoph Grabo <asaaki@mannaz.cc>
+Date: Sat, 14 May 2016 17:58:31 +0200
+Subject: [PATCH] Remove all duplicate funcs when assignment present
+
+Sometimes there are more functions with a given name in the funcs list,
+but most commonly only a single assignment with that name is found.
+
+Running `Enum.uniq` on both lists before `--` reduces the amount of
+leaking `let`s a bit, but not completely.
+
+Haven't found a minimal test case, so I just refer to my broken build:
+
+- Travis CI: https://travis-ci.org/edib-tool/mix-edib/builds/130218530
+- Commit: https://github.com/edib-tool/mix-edib/commit/6d1ad4d41a46b01270e3d982933b329b5270f103
+---
+ deps/espec/lib/espec/let/quote_analyzer.ex | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/deps/espec/lib/espec/let/quote_analyzer.ex b/lib/espec/let/quote_analyzer.ex
+index 7efb86d..543c4db 100644
+--- a/deps/espec/lib/espec/let/quote_analyzer.ex
++++ b/deps/espec/lib/espec/let/quote_analyzer.ex
+@@ -1,7 +1,7 @@
+ defmodule ESpec.Let.QuoteAnalyzer do
+   def function_list(ast) do
+-    {funcs, assigments} = Enum.partition(parse(ast, []), fn {key, value} -> key == :fun end)
+-    Enum.uniq(Keyword.values(funcs) -- Keyword.values(assigments))
++    {funcs, assignments} = Enum.partition(parse(ast, []), fn {key, _value} -> key == :fun end)
++    Enum.uniq(Keyword.values(funcs)) -- Enum.uniq(Keyword.values(assignments))
+   end
+ 
+   defp parse({:|>, _, [ast_left, {ast, context, args}]}, fun_list) do
+-- 
+2.8.1
+
