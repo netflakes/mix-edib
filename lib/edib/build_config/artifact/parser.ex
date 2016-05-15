@@ -26,7 +26,7 @@ defmodule EDIB.BuildConfig.Artifact.Parser do
 
   defp init_state(options) when is_list(options) or is_map(options),
     do: {:ok, %Artifact{}, options}
-  defp init_state(options),
+  defp init_state(_options),
     do: {:error, "Invalid options given (not a list/dict/map)"}
 
   defp set_edib_tool({:ok, artifact_config, options}) do
