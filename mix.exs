@@ -19,6 +19,7 @@ defmodule EDIB.Mixfile do
       docs:          &docs/0,
       test_coverage: [tool: ExCoveralls, test_task: "espec"],
       preferred_cli_env: [espec: :test],
+      aliases: aliases,
     ]
   end
 
@@ -67,6 +68,12 @@ defmodule EDIB.Mixfile do
       {:inch_ex, "~> 0.5", only: [:docs, :ci]},
       {:poison, "~> 2.1", only: [:test, :docs, :lint, :ci], override: true},
       {:dialyxir, "~> 0.3", only: [:dev]},
+    ]
+  end
+
+  defp aliases do
+    [
+      "test": ["espec"]
     ]
   end
 end
