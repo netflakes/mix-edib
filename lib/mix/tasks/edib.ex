@@ -59,10 +59,12 @@ defmodule Mix.Tasks.Edib do
   More technical information about stripping:
   <http://erlang.org/doc/man/beam_lib.html#strip-1>
 
-  All OTP applications can be bundles into archives (.ez files):
+  All OTP applications can be bundled into archives (.ez files):
 
       mix edib --zip
       mix edib -z
+
+  **WARNING:** Do not use this if you have NIFs in your codebase or dependencies.
 
   More technical information about "Loading of Code From Archive Files":
   <http://erlang.org/doc/man/code.html#id104826>
