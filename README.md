@@ -24,6 +24,7 @@ A mix task for [EDIB (elixir docker image builder)](https://github.com/edib-tool
 - [Help](#help)
 - [Options](#options)
   - [Name, prefix, tag](#name-prefix-tag)
+  - [Release strip and zip (EXPERIMENTAL)](#release-strip-and-zip-experimental)
   - [Silent mode (quiet mode)](#silent-mode-quiet-mode)
   - [Volume mappings](#volume-mappings)
   - [Docker related](#docker-related)
@@ -76,9 +77,33 @@ Set a specific tag for the docker image
 If `--name` and `--prefix` are given, the name option takes precedence
 (prefix will be ignored).
 
+### Release strip and zip (EXPERIMENTAL)
+
+Following options use <https://github.com/ntrepid8/ex_strip_zip> in the
+edib-tool build environment.
+
+All .beam files in a release can be stripped (mostly of debug information):
+
+    mix edib --strip
+    mix edib -x
+
+More technical information about stripping:
+<http://erlang.org/doc/man/beam_lib.html#strip-1>
+
+All OTP applications can be bundled into archives (.ez files):
+
+    mix edib --zip
+    mix edib -z
+
+**WARNING:** Do not use this if you have NIFs in your codebase or dependencies.
+
+More technical information about "Loading of Code From Archive Files":
+<http://erlang.org/doc/man/code.html#id104826>
+
 ### Silent mode (quiet mode)
 
-    # Silence build output of EDIB (will be logged to `.edib.log` instead)
+Silence build output of EDIB (will be logged to `.edib.log` instead)
+
     mix edib --silent
     mix edib -s
 
