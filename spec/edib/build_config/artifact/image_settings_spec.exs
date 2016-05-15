@@ -38,6 +38,24 @@ defmodule EDIBBuildConfigArtifactImageSettingsSpec do
         end
       end
 
+      context "for release strip" do
+        let :options, do: %{strip: true}
+
+        it "returns list containing release strip option" do
+          result = ImageSettings.from_cli_options(options)
+          expect(result).to eql(["RELEASE_STRIP=true"])
+        end
+      end
+
+      context "for release zip" do
+        let :options, do: %{zip: true}
+
+        it "returns list containing release zip option" do
+          result = ImageSettings.from_cli_options(options)
+          expect(result).to eql(["RELEASE_ZIP=true"])
+        end
+      end
+
       context "for test run" do
         let :options, do: %{test: true}
 

@@ -6,6 +6,8 @@ defmodule EDIB.BuildConfig.Artifact.ImageSettings do
     |> package_name
     |> package_tag
     |> package_prefix
+    |> release_strip
+    |> release_zip
     |> with_test_run
     |> elem(1)
   end
@@ -49,6 +51,26 @@ defmodule EDIB.BuildConfig.Artifact.ImageSettings do
     do: {options, vars}
   defp maybe_package_prefix(prefix, options, vars),
     do: {options, ["RELEASE_PREFIX=#{prefix}" | vars]}
+
+  defp release_strip({%{strip: strip} = options, vars}),
+    do: maybe_release_strip(strip, options, vars)
+  defp release_strip({options, vars}),
+    do: {options, vars}
+
+  defp maybe_release_strip(true, options, vars),
+    do: {options, ["RELEASE_STRIP=true" | vars]}
+  defp maybe_release_strip(_, options, vars),
+    do: {options, vars}
+
+  defp release_zip({%{zip: zip} = options, vars}),
+    do: maybe_release_zip(zip, options, vars)
+  defp release_zip({options, vars}),
+    do: {options, vars}
+
+  defp maybe_release_zip(true, options, vars),
+    do: {options, ["RELEASE_ZIP=true" | vars]}
+  defp maybe_release_zip(_, options, vars),
+    do: {options, vars}
 
   defp with_test_run({%{test: test} = options, vars}),
     do: maybe_with_test_run(test, options, vars)

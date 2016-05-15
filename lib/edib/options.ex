@@ -14,7 +14,9 @@ defmodule EDIB.Options do
     p: :prefix,
     s: :silent,
     t: :tag,
-    v: :volume
+    v: :volume,
+    x: :strip,
+    z: :zip,
   ]
 
   @option_stricts [
@@ -27,9 +29,11 @@ defmodule EDIB.Options do
     privileged: :boolean,
     silent:     :boolean,
     ssh_keys:   :boolean,          # `--ssh-keys`; shortcut for ~/.ssh directory
+    strip:      :boolean,
     tag:        :string,
     test:       :boolean,          # TODO: Not yet implemented!
-    volume:     [:string, :keep]
+    volume:     [:string, :keep],
+    zip:        :boolean,
   ]
 
   @option_parser_settings [aliases: @option_aliases, strict: @option_stricts]

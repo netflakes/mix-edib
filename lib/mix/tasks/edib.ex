@@ -46,9 +46,31 @@ defmodule Mix.Tasks.Edib do
   If `--name` and `--prefix` are given, the name option takes precedence
   (prefix will be ignored).
 
+  ### Release strip and zip (EXPERIMENTAL)
+
+  Following options use <https://github.com/ntrepid8/ex_strip_zip> in the
+  edib-tool build environment.
+
+  All .beam files in a release can be stripped (mostly of debug information):
+
+      mix edib --strip
+      mix edib -x
+
+  More technical information about stripping:
+  <http://erlang.org/doc/man/beam_lib.html#strip-1>
+
+  All OTP applications can be bundles into archives (.ez files):
+
+      mix edib --zip
+      mix edib -z
+
+  More technical information about "Loading of Code From Archive Files":
+  <http://erlang.org/doc/man/code.html#id104826>
+
   ### Silent mode (quiet mode)
 
-      # Silence build output of EDIB (will be logged to `.edib.log` instead)
+  Silence build output of EDIB (will be logged to `.edib.log` instead)
+
       mix edib --silent
       mix edib -s
 
