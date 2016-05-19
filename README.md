@@ -5,6 +5,7 @@
 [![Hex.pm package license](https://img.shields.io/hexpm/l/edib.svg?style=flat-square)](https://github.com/edib-tool/mix-edib/blob/master/LICENSE)
 [![Build Status (master)](https://img.shields.io/travis/edib-tool/mix-edib/master.svg?style=flat-square)](https://travis-ci.org/edib-tool/mix-edib)
 [![Coverage Status (master)](https://img.shields.io/coveralls/edib-tool/mix-edib/master.svg?style=flat-square)](https://coveralls.io/r/edib-tool/mix-edib)
+[![Deps Status](https://beta.hexfaktor.org/badge/all/github/edib-tool/mix-edib.svg?style=flat-square)](https://beta.hexfaktor.org/github/edib-tool/mix-edib)
 [![Inline docs](http://inch-ci.org/github/edib-tool/mix-edib.svg?branch=master&style=flat-square)](http://inch-ci.org/github/edib-tool/mix-edib)
 
 A mix task for [EDIB (elixir docker image builder)](https://github.com/edib-tool/elixir-docker-image-builder).
