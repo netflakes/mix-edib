@@ -1,7 +1,7 @@
 defmodule EDIB.Defaults do
   @moduledoc false
 
-  def edib_version,               do: "1.3.1"
+  def edib_version,               do: "1.3.2"
   def edib_tool,                  do: "edib/edib-tool:#{edib_version}"
   def tarball_dir_name,           do: "tarballs"
 
