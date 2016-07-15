@@ -9,6 +9,7 @@ defmodule EDIB.BuildConfig.Artifact.Builder do
     artifact_config
     |> maybe_artifact_config
     |> set_edib_tool
+    |> set_environment
     |> set_settings
     |> set_volumes
     |> set_priv_flag
@@ -28,6 +29,13 @@ defmodule EDIB.BuildConfig.Artifact.Builder do
     {:ok, config, [Defaults.edib_tool | command_list]}
   end
   defp set_edib_tool(error), do: error
+
+  defp set_environment({:ok, config, command_list}) do
+    {:ok, config, [environment_setting | command_list]}
+  end
+  defp set_environment(error), do: error
+
+  defp environment_setting, do: "-e #{Defaults.env_variable_name}=#{Defaults.environment}" 
 
   defp set_settings({:ok, %{settings: settings} = config, command_list}) do
     {:ok, config, [ImageSettings.to_docker_options(settings) | command_list]}

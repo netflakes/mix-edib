@@ -19,6 +19,18 @@ defmodule EDIBDefaultsSpec do
       end
     end
 
+    describe "environment/0" do
+      it "returns prod as default environment" do
+        System.delete_env("MIX_ENV")
+        expect(Defaults.environment).to eq("prod")
+      end
+
+      it "returns MIX_ENV as the environment" do
+        System.put_env("MIX_ENV", "staging")
+        expect(Defaults.environment).to eq("staging")
+      end
+    end
+
     describe "home_dir/0" do
       it "returns the current home directory" do
         expect(Defaults.home_dir).to eql(System.user_home!)

@@ -8,6 +8,7 @@ defmodule EDIBBuildConfigArtifactBuilderSpec do
     describe "build/1" do
       let :rm_flag, do: "--rm"
       let :privileged_flag, do: "--privileged"
+      let :environment_flag, do: "-e MIX_ENV="
 
       context "defaults ('unconfigured' state)" do
         let :default_config, do: %Artifact{}
@@ -18,6 +19,7 @@ defmodule EDIBBuildConfigArtifactBuilderSpec do
           expect(command_string).to have(Defaults.docker_run)
           expect(command_string).to have(rm_flag)
           expect(command_string).to have(Defaults.edib_tool)
+          expect(command_string).to have(environment_flag <> Defaults.environment)
         end
       end
 
