@@ -21,12 +21,12 @@ defmodule EDIBDefaultsSpec do
 
     describe "environment/0" do
       it "returns prod as default environment" do
-        System.delete_env("MIX_ENV")
+        allow(System |> to(accept :get_env, fn("MIX_ENV") -> nil end))
         expect(Defaults.environment).to eq("prod")
       end
 
       it "returns MIX_ENV as the environment" do
-        System.put_env("MIX_ENV", "staging")
+        allow(System |> to(accept :get_env, fn("MIX_ENV") -> "staging" end))
         expect(Defaults.environment).to eq("staging")
       end
     end
