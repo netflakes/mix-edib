@@ -52,6 +52,12 @@ Don't forget to add `exrm` to your project:
 
     mix edib
 
+mix-edib will use the MIX_ENV environment variable to build the image.
+
+    MIX_ENV=staging mix edib
+
+**WARNING:** If `MIX_ENV` is not set EDIB will build the image for the `prod` environment.
+
 ## Help
 
     mix help edib

@@ -5,6 +5,10 @@ defmodule EDIB.Defaults do
   def edib_tool,                  do: "edib/edib-tool:#{edib_version}"
   def tarball_dir_name,           do: "tarballs"
 
+  def env_variable_name,          do: "MIX_ENV"
+  def default_environment,        do: "prod"
+  def environment,                do: System.get_env(env_variable_name) || default_environment
+
   # $HOME should be set, or fallback to a tmp dir:
   def home_dir,                   do: System.user_home || System.tmp_dir
   def current_dir,                do: System.cwd!

@@ -19,6 +19,18 @@ defmodule EDIBDefaultsSpec do
       end
     end
 
+    describe "environment/0" do
+      it "returns prod as default environment" do
+        allow(System |> to(accept :get_env, fn("MIX_ENV") -> nil end))
+        expect(Defaults.environment).to eq("prod")
+      end
+
+      it "returns MIX_ENV as the environment" do
+        allow(System |> to(accept :get_env, fn("MIX_ENV") -> "staging" end))
+        expect(Defaults.environment).to eq("staging")
+      end
+    end
+
     describe "home_dir/0" do
       it "returns the current home directory" do
         expect(Defaults.home_dir).to eql(System.user_home!)
