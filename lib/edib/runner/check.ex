@@ -2,7 +2,7 @@ defmodule EDIB.Runner.Check do
   @moduledoc false
 
   def prerequisites({:ok, _, _} = state),
-    do: state |> check_app |> check_exrm
+    do: state |> check_app |> check_distillery
   def prerequisites(error),
     do: error
 
@@ -24,23 +24,23 @@ defmodule EDIB.Runner.Check do
   defp maybe_check_app(_, options),
     do: {:ok, :project_present, options}
 
-  defp check_exrm({:ok, _msg, options}),
-    do: exrm? |> maybe_check_exrm(options)
-  defp check_exrm(error),
+  defp check_distillery({:ok, _msg, options}),
+    do: distillery? |> maybe_check_distillery(options)
+  defp check_distillery(error),
     do: error
 
-  defp maybe_check_exrm(true, options),
+  defp maybe_check_distillery(true, options),
     do: {:ok, :project_present, options}
-  defp maybe_check_exrm(_, options) do
+  defp maybe_check_distillery(_, options) do
     {
       :error,
-      "No `exrm` dependency found. Please add it to your project.",
+      "No `distillery` dependency found. Please add it to your project.",
       options
     }
   end
 
   defp project?,       do: Mix.Project.get
-  defp exrm?,          do: project_deps |> Dict.has_key?(:exrm)
+  defp distillery?,    do: project_deps |> Dict.has_key?(:distillery)
   defp project_deps,   do: project_config |> Dict.get(:deps)
   defp project_config, do: Mix.Project.config
 end
