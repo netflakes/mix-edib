@@ -9,6 +9,20 @@ This change log follows the recommendations of [keepachangelog].
 
 (no changes yet)
 
+## [0.8.3] - 2016-09-20
+### Fixed
+
+- Documentation, no code changes
+
+## [0.8.2] - 2016-09-20
+
+(Not released as hex package! Use 0.8.3 instead.)
+
+### Added
+
+- Support for building with the provided environment
+  (instead of defaulting to `prod` only) - PR #14 (thanks @migore)
+
 ## [0.8.1] - 2016-06-29
 ### Fixed
 
