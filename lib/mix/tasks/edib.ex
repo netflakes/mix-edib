@@ -6,7 +6,7 @@ defmodule Mix.Tasks.Edib do
 
   Just run this and confirm:
 
-      mix archive.install https://git.io/edib-0.8.1.ez
+      mix archive.install https://git.io/edib-0.8.2.ez
 
   Don't forget to add `exrm` to your project:
 
