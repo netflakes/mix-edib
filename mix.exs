@@ -3,7 +3,7 @@ Code.eval_file "tasks/readme.exs"
 defmodule EDIB.Mixfile do
   use Mix.Project
 
-  @version "0.8.3"
+  @version "0.9.0"
 
   def project do
     [

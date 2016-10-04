@@ -9,7 +9,15 @@ This change log follows the recommendations of [keepachangelog].
 
 (no changes yet)
 
+## [0.9.0] - 2016-10-04
+
+### Changed
+
+- Update edib-tool to version 1.4.0, this replaces `exrm` with `distillery`.
+- Update outdated dependencies.
+
 ## [0.8.3] - 2016-09-20
+
 ### Fixed
 
 - Documentation, no code changes
@@ -24,6 +32,7 @@ This change log follows the recommendations of [keepachangelog].
   (instead of defaulting to `prod` only) - PR #14 (thanks @migore)
 
 ## [0.8.1] - 2016-06-29
+
 ### Fixed
 
 - Update edib-tool to version 1.3.2 to fix an issue with the hex
@@ -62,6 +71,9 @@ PRs for updating the change log history are very welcome!
 
 [Semantic Versioning]: http://semver.org/
 [keepachangelog]: http://keepachangelog.com/
-[Unreleased]: https://github.com/edib-tool/mix-edib/compare/v0.8.1...HEAD
+[Unreleased]: https://github.com/edib-tool/mix-edib/compare/v0.9.0...HEAD
+[0.9.0]: https://github.com/edib-tool/mix-edib/compare/v0.9.0...v0.8.3
+[0.8.3]: https://github.com/edib-tool/mix-edib/compare/v0.8.3...v0.8.2
+[0.8.2]: https://github.com/edib-tool/mix-edib/compare/v0.8.2...v0.8.1
 [0.8.1]: https://github.com/edib-tool/mix-edib/compare/v0.8.1...v0.8.0
 [0.8.0]: https://github.com/edib-tool/mix-edib/compare/v0.8.0...v0.7.0
