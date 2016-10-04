@@ -2,7 +2,7 @@ all:
 	@echo Use publish, archive or gitio
 
 publish:
-	@mix hex.publish && MIX_ENV=docs mix hex.docs
+	@mix hex.publish
 
 push:
 	@git push && git push --tags
