@@ -12,7 +12,7 @@ defmodule Mix.Tasks.Edib do
 
       defp deps do
         [
-          {:distillery, "~> 0.9"},
+          {:distillery, "~> 0.10"},
         ]
       end
 

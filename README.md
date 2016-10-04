@@ -44,7 +44,7 @@ Don't forget to add `distillery` to your project:
 
     defp deps do
       [
-        {:distillery, "~> 0.9"},
+        {:distillery, "~> 0.10"},
       ]
     end
 
