@@ -8,11 +8,11 @@ defmodule Mix.Tasks.Edib do
 
       mix archive.install https://git.io/edib-0.8.3.ez
 
-  Don't forget to add `exrm` to your project:
+  Don't forget to add `distillery` to your project:
 
       defp deps do
         [
-          {:exrm, "~> 1.0"},
+          {:distillery, "~> 0.9"},
         ]
       end
 
