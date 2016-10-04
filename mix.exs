@@ -66,7 +66,7 @@ defmodule EDIB.Mixfile do
       {:ex_doc, "~> 0.13", only: [:docs, :ci]},
       {:excoveralls, "~> 0.5", only: [:test, :ci]},
       {:inch_ex, "~> 0.5", only: [:docs, :ci]},
-      {:poison, "~> 2.2", only: [:test, :docs, :lint, :ci], override: true},
+      {:poison, "~> 3.0", only: [:test, :docs, :lint, :ci], override: true},
       {:dialyxir, "~> 0.3", only: [:dev]},
     ]
   end
