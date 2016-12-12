@@ -118,10 +118,10 @@ Silence build output of EDIB (will be logged to `.edib.log` instead)
 
 Map additional volumes for use while building the release
 
-    mix edib --mapping <FROM>:<TO>[:<OPTION>]
-    mix edib -m <FROM>:<TO>[:<OPTION>]
+    mix edib --volume <FROM>:<TO>[:<OPTION>]
+    mix edib -v <FROM>:<TO>[:<OPTION>]
 
-For common cases there are some mapping shorthands:
+For common cases there are some volume mapping shorthands:
 
 Include the host user's SSH keys for private GitHub repositories
 
