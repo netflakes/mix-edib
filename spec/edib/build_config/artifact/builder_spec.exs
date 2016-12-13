@@ -36,6 +36,17 @@ defmodule EDIBBuildConfigArtifactBuilderSpec do
         end
       end
 
+      context "with given edib tool" do
+        let :custom_edib_image_name, do: "edib/foo:bar"
+        let :config, do: %Artifact{edib_tool: custom_edib_image_name}
+
+        it "returns a command string" do
+          {result, command_string} = Builder.build(config)
+          expect(result).to eql(:ok)
+          expect(command_string).to have(custom_edib_image_name)
+        end
+      end
+
       context "with given volumes" do
         let :volume, do: Volume.for_ssh_keys
         let :docker_mapping, do: Volume.to_docker_option(volume)
