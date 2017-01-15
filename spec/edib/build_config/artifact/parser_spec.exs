@@ -6,16 +6,16 @@ defmodule EDIBBuildConfigArtifactParserSpec do
 
   describe "EDIB.BuildConfig.Artifact.Parser" do
     describe "from_cli_options/1" do
-      context "empty options" do
-        let :default_artifact_config do
-          %Artifact{
-            volumes: [
-              Volume.for_source(Defaults.current_dir),
-              Volume.for_tarball(Defaults.tarball_dir),
-            ]
-          }
-        end
+      let :default_artifact_config do
+        %Artifact{
+          volumes: [
+            Volume.for_source(Defaults.current_dir),
+            Volume.for_tarball(Defaults.tarball_dir),
+          ]
+        }
+      end
 
+      context "empty options" do
         it "returns default artifact config" do
           {result, artifact_config} = Parser.from_cli_options([])
           expect(result).to eql(:ok)
@@ -26,7 +26,14 @@ defmodule EDIBBuildConfigArtifactParserSpec do
 
       context "custom options" do
         context "for edib tool (docker image)" do
-          xit do: :ok
+          let :custom_edib_image_name, do: "edib/foo:bar"
+
+          it "returns the passed edib docker image" do
+            {result, artifact_config} = Parser.from_cli_options([edib: custom_edib_image_name])
+            expect(result).to eql(:ok)
+            expect(artifact_config).to be_struct(Artifact)
+            expect(artifact_config).to eq(%{default_artifact_config | edib_tool: custom_edib_image_name})
+          end
         end
 
         context "for custom volumes" do

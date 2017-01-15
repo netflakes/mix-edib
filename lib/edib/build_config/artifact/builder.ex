@@ -26,7 +26,7 @@ defmodule EDIB.BuildConfig.Artifact.Builder do
     do: {:error, "Not a valid artifact config given"}
 
   defp set_edib_tool({:ok, config, command_list}) do
-    {:ok, config, [Defaults.edib_tool | command_list]}
+    {:ok, config, [config.edib_tool | command_list]}
   end
   defp set_edib_tool(error), do: error
 

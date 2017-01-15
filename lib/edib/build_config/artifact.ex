@@ -1,7 +1,8 @@
 defmodule EDIB.BuildConfig.Artifact do
-  @moduledoc false
-
   alias EDIB.Defaults
+  require Defaults
+
+  @moduledoc false
 
   defstruct edib_tool:  Defaults.edib_tool,
             privileged: Defaults.docker_run_privileged,
