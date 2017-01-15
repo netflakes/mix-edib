@@ -2,8 +2,10 @@ defmodule EDIBDefaultsSpec do
   use ESpec
   alias EDIB.Defaults
 
+  @defaul_edib_version "1.5.1"
+
   describe "EDIB.Defaults" do
-    let! :version, do: "1.4.0"
+    let! :version, do: @defaul_edib_version
     let! :image, do: "edib/edib-tool:#{version}"
     let! :artifact_cfg, do: "artifact.cfg"
 
