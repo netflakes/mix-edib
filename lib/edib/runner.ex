@@ -20,7 +20,7 @@ defmodule EDIB.Runner do
     |> check_options
     |> EDIB.Runner.Check.prerequisites
     |> EDIB.Runner.Log.reinit
-    |> info_edib_version
+    |> info_edib_tool
     |> package_processing_info
     |> EDIB.Runner.ArtifactBuilder.run
     |> EDIB.Runner.ImageBuilder.run
@@ -30,11 +30,11 @@ defmodule EDIB.Runner do
   defp check_options({:ok, options}), do: {:ok, :options_ok, options}
   defp check_options({:error, msg}),  do: {:error, msg, :invalid_options}
 
-  defp info_edib_version({:ok, _, options} = state) do
-    info("Will use EDIB tool v#{options.artifact_config.edib_version}")
+  defp info_edib_tool({:ok, _, options} = state) do
+    info("Will use EDIB tool v#{options.artifact_config.edib_tool}")
     state
   end
-  defp info_edib_version(error), do: error
+  defp info_edib_tool(error), do: error
 
   defp package_processing_info({:ok, _, _} = state) do
     info("Packaging your app release into a docker image. Stay tuned!")
