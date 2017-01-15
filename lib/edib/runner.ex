@@ -31,7 +31,7 @@ defmodule EDIB.Runner do
   defp check_options({:error, msg}),  do: {:error, msg, :invalid_options}
 
   defp info_edib_tool({:ok, _, options} = state) do
-    info("Will use EDIB tool v#{options.artifact_config.edib_tool}")
+    info("Will use EDIB tool #{options.artifact_config.edib_tool}")
     state
   end
   defp info_edib_tool(error), do: error
