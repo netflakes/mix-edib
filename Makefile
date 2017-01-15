@@ -38,6 +38,9 @@ test: spec
 
 ### LINT
 
-lint:
-	-MIX_ENV=lint mix dogma
+lint: lint-credo
+.PHONY: lint
+
+lint-credo:
 	-MIX_ENV=lint mix credo --strict
+.PHONY: lint-credo
