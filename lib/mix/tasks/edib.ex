@@ -12,7 +12,7 @@ defmodule Mix.Tasks.Edib do
 
       defp deps do
         [
-          {:distillery, "~> 0.10"},
+          {:distillery, "~> 1.1"},
         ]
       end
 
@@ -125,8 +125,8 @@ defmodule Mix.Tasks.Edib do
 
   Select edib-tool docker image (complete repo + version)
 
-      mix edib --edib edib/edib-tool:1.5.0
-      mix edib -e edib/edib-tool:1.5.0
+      mix edib --edib edib/edib-tool:1.5.2
+      mix edib -e edib/edib-tool:1.5.2
   """
 
   @shortdoc "Create a Docker image of your app."
