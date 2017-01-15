@@ -18,9 +18,9 @@ defmodule EDIB.Runner do
     cli_arguments
     |> EDIB.Options.from_cli_arguments
     |> check_options
-    |> info_edib_version
     |> EDIB.Runner.Check.prerequisites
     |> EDIB.Runner.Log.reinit
+    |> info_edib_version
     |> package_processing_info
     |> EDIB.Runner.ArtifactBuilder.run
     |> EDIB.Runner.ImageBuilder.run
@@ -30,9 +30,9 @@ defmodule EDIB.Runner do
   defp check_options({:ok, options}), do: {:ok, :options_ok, options}
   defp check_options({:error, msg}),  do: {:error, msg, :invalid_options}
 
-  defp info_edib_version(result = {:ok, options}) do
-    notice("Will use EDIB tool v#{options.artifact_config.edib_version}")
-    result
+  defp info_edib_version({:ok, options} = state) do
+    info("Will use EDIB tool v#{options.artifact_config.edib_version}")
+    state
   end
   defp info_edib_version(error), do: error
 
@@ -49,6 +49,6 @@ defmodule EDIB.Runner do
   defp success_or_error!({:error, msg, _}) do
     error("An error happened!")
     error("Reason: #{msg}")
-    abort!
+    abort!()
   end
 end
