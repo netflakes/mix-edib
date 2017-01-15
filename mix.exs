@@ -60,13 +60,13 @@ defmodule EDIB.Mixfile do
   defp deps do
     [
       {:cmark, "~> 0.6", only: [:docs, :ci]},
-      {:credo, "~> 0.4", only: [:lint, :ci]},
-      {:espec, "~> 1.1", only: [:test, :ci]},
-      {:ex_doc, "~> 0.13", only: [:dev, :docs, :ci]},
-      {:excoveralls, "~> 0.5", only: [:test, :ci]},
+      {:credo, "~> 0.5", only: [:lint, :ci]},
+      {:espec, "~> 1.2", only: [:test, :ci]},
+      {:ex_doc, "~> 0.14", only: [:dev, :docs, :ci]},
+      {:excoveralls, "~> 0.6", only: [:test, :ci]},
       {:inch_ex, "~> 0.5", only: [:docs, :ci]},
-      {:poison, "~> 3.0", only: [:test, :docs, :lint, :ci], override: true},
-      {:dialyxir, "~> 0.3", only: [:dev]},
+      {:poison, "~> 3.1", only: [:test, :docs, :lint, :ci], override: true},
+      {:dialyxir, "~> 0.4", only: [:dev]},
     ]
   end
 
