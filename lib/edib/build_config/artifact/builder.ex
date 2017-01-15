@@ -35,7 +35,7 @@ defmodule EDIB.BuildConfig.Artifact.Builder do
   end
   defp set_environment(error), do: error
 
-  defp environment_setting, do: "-e #{Defaults.env_variable_name}=#{Defaults.environment}" 
+  defp environment_setting, do: "-e #{Defaults.env_variable_name}=#{Defaults.environment}"
 
   defp set_settings({:ok, %{settings: settings} = config, command_list}) do
     {:ok, config, [ImageSettings.to_docker_options(settings) | command_list]}
