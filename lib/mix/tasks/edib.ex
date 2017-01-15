@@ -123,10 +123,10 @@ defmodule Mix.Tasks.Edib do
 
   ### Developer options
 
-  Select edib-tool docker image version
+  Select edib-tool docker image (complete repo + version)
 
-      mix edib --edib 1.5.0
-      mix edib -e 1.5.0
+      mix edib --edib edib/edib-tool:1.5.0
+      mix edib -e edib/edib-tool:1.5.0
   """
 
   @shortdoc "Create a Docker image of your app."
