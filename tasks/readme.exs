@@ -27,7 +27,7 @@ defmodule Mix.Tasks.Readme do
     |> remove_old_doc
     |> add_updated_doc
     |> write_back
-    update_toc
+    update_toc()
   end
 
   @new_doc ~R/(\s* <!-- \s+ (module)?doc: \s* (\S+?) \s+ -->).*\n/x

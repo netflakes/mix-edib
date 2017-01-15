@@ -11,15 +11,15 @@ defmodule EDIB.Mixfile do
       name:          "edib",
       version:       @version,
       elixir:        "~> 1.3",
-      deps:          deps,
-      description:   description,
-      package:       package,
+      deps:          deps(),
+      description:   description(),
+      package:       package(),
       source_url:    "https://github.com/edib-tool/mix-edib",
       homepage_url:  "http://hexdocs.pm/mix-edib",
       docs:          &docs/0,
       test_coverage: [tool: ExCoveralls, test_task: "espec"],
       preferred_cli_env: [espec: :test],
-      aliases: aliases,
+      aliases: aliases(),
     ]
   end
 
