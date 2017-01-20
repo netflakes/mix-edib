@@ -1,0 +1,6 @@
+* text=auto
+*.sh text eol=lf
+*.exs text eol=lf
+*.ex text eol=lf
+*.cfg text eol=lf
+*.lock text eol=lf
