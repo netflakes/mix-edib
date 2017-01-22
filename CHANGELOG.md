@@ -9,6 +9,19 @@ This change log follows the recommendations of [keepachangelog].
 
 (no changes yet)
 
+## [0.10.0] - 2017-01-22
+
+### Notes
+
+- This version requires Elixir v1.4 or newer.
+- This version requires Distillery v1.1 or newer.
+
+### Changed
+
+- Update edib-tool to version 1.6.0.
+- Update outdated dependencies.
+- Cleanups and documentation fixes.
+
 ## [0.9.0] - 2016-10-04
 
 ### Changed
