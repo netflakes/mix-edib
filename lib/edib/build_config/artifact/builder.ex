@@ -26,7 +26,7 @@ defmodule EDIB.BuildConfig.Artifact.Builder do
     do: {:error, "Not a valid artifact config given"}
 
   defp set_edib_tool({:ok, config, command_list}) do
-    {:ok, config, [Defaults.edib_tool | command_list]}
+    {:ok, config, [config.edib_tool | command_list]}
   end
   defp set_edib_tool(error), do: error
 
@@ -35,7 +35,7 @@ defmodule EDIB.BuildConfig.Artifact.Builder do
   end
   defp set_environment(error), do: error
 
-  defp environment_setting, do: "-e #{Defaults.env_variable_name}=#{Defaults.environment}" 
+  defp environment_setting, do: "-e #{Defaults.env_variable_name}=#{Defaults.environment}"
 
   defp set_settings({:ok, %{settings: settings} = config, command_list}) do
     {:ok, config, [ImageSettings.to_docker_options(settings) | command_list]}

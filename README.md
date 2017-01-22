@@ -29,6 +29,7 @@ A mix task for [EDIB (elixir docker image builder)](https://github.com/edib-tool
   - [Silent mode (quiet mode)](#silent-mode-quiet-mode)
   - [Volume mappings](#volume-mappings)
   - [Docker related](#docker-related)
+  - [Developer options](#developer-options)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <!-- moduledoc: Mix.Tasks.Edib -->
@@ -44,7 +45,7 @@ Don't forget to add `distillery` to your project:
 
     defp deps do
       [
-        {:distillery, "~> 0.10"},
+        {:distillery, "~> 1.1"},
       ]
     end
 
@@ -153,4 +154,10 @@ Do not remove intermediate containers on build runs
 
     mix edib --no-rm
 
+### Developer options
+
+Select edib-tool docker image (complete repo + version)
+
+    mix edib --edib edib/edib-tool:1.5.2
+    mix edib -e edib/edib-tool:1.5.2
 <!-- endmoduledoc: Mix.Tasks.Edib -->

@@ -3,10 +3,8 @@ defmodule EDIB.Runner do
 
   import EDIB.Utils
 
-  def run(cli_arguments) when is_list(cli_arguments) do
-    notice("Will use EDIB tool v#{EDIB.Defaults.edib_version}")
-    run_steps(cli_arguments)
-  end
+  def run(cli_arguments) when is_list(cli_arguments),
+    do: run_steps(cli_arguments)
   def run(cli_arguments) do
     {
       :error,
@@ -22,6 +20,7 @@ defmodule EDIB.Runner do
     |> check_options
     |> EDIB.Runner.Check.prerequisites
     |> EDIB.Runner.Log.reinit
+    |> info_edib_tool
     |> package_processing_info
     |> EDIB.Runner.ArtifactBuilder.run
     |> EDIB.Runner.ImageBuilder.run
@@ -30,6 +29,12 @@ defmodule EDIB.Runner do
 
   defp check_options({:ok, options}), do: {:ok, :options_ok, options}
   defp check_options({:error, msg}),  do: {:error, msg, :invalid_options}
+
+  defp info_edib_tool({:ok, _, options} = state) do
+    info("Will use EDIB tool #{options.artifact_config.edib_tool}")
+    state
+  end
+  defp info_edib_tool(error), do: error
 
   defp package_processing_info({:ok, _, _} = state) do
     info("Packaging your app release into a docker image. Stay tuned!")
@@ -44,6 +49,6 @@ defmodule EDIB.Runner do
   defp success_or_error!({:error, msg, _}) do
     error("An error happened!")
     error("Reason: #{msg}")
-    abort!
+    abort!()
   end
 end

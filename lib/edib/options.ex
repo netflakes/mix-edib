@@ -8,6 +8,7 @@ defmodule EDIB.Options do
             artifact_config: %Artifact{}
 
   @option_aliases [
+    e: :edib,
     h: :hex,
     k: :ssh_keys,
     n: :name,
