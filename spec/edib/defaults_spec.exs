@@ -2,7 +2,7 @@ defmodule EDIBDefaultsSpec do
   use ESpec
   alias EDIB.Defaults
 
-  @defaul_edib_version "1.5.1"
+  @defaul_edib_version "1.6.0"
 
   describe "EDIB.Defaults" do
     let! :version, do: @defaul_edib_version
