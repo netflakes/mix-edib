@@ -31,7 +31,7 @@ defmodule EDIB.BuildConfig.Artifact.Builder do
   defp set_edib_tool(error), do: error
 
   defp set_environment({:ok, config, command_list}) do
-    {:ok, config, [environment_setting | command_list]}
+    {:ok, config, [environment_setting() | command_list]}
   end
   defp set_environment(error), do: error
 

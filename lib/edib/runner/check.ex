@@ -2,14 +2,14 @@ defmodule EDIB.Runner.Check do
   @moduledoc false
 
   def prerequisites({:ok, _, _} = state),
-    do: state |> check_app |> check_distillery
+    do: state |> check_app() |> check_distillery()
   def prerequisites(error),
     do: error
 
   ### Internals
 
   defp check_app({:ok, _msg, options}),
-    do: project? |> maybe_check_app(options)
+    do: project?() |> maybe_check_app(options)
   defp check_app(error),
     do: error
 
@@ -25,7 +25,7 @@ defmodule EDIB.Runner.Check do
     do: {:ok, :project_present, options}
 
   defp check_distillery({:ok, _msg, options}),
-    do: distillery? |> maybe_check_distillery(options)
+    do: distillery?() |> maybe_check_distillery(options)
   defp check_distillery(error),
     do: error
 
@@ -40,7 +40,7 @@ defmodule EDIB.Runner.Check do
   end
 
   defp project?,       do: Mix.Project.get
-  defp distillery?,    do: project_deps |> Keyword.has_key?(:distillery)
-  defp project_deps,   do: project_config |> Keyword.get(:deps)
+  defp distillery?,    do: project_deps() |> Keyword.has_key?(:distillery)
+  defp project_deps,   do: project_config() |> Keyword.get(:deps)
   defp project_config, do: Mix.Project.config
 end
