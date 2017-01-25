@@ -40,7 +40,7 @@ defmodule EDIB.Runner.Check do
   end
 
   defp project?,       do: Mix.Project.get
-  defp distillery?,    do: project_deps |> Dict.has_key?(:distillery)
-  defp project_deps,   do: project_config |> Dict.get(:deps)
+  defp distillery?,    do: project_deps |> Keyword.has_key?(:distillery)
+  defp project_deps,   do: project_config |> Keyword.get(:deps)
   defp project_config, do: Mix.Project.config
 end

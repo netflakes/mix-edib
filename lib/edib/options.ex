@@ -56,8 +56,8 @@ defmodule EDIB.Options do
   end
 
   defp set_writer(cli_options) do
-    silent = Dict.get(cli_options, :silent, false)
-    Dict.merge(cli_options, writer: log_writer(silent))
+    silent = Keyword.get(cli_options, :silent, false)
+    Keyword.merge(cli_options, writer: log_writer(silent))
   end
 
   defp log_writer(true), do: &EDIB.Utils.LogWriter.write/1
@@ -70,7 +70,7 @@ defmodule EDIB.Options do
   end
 
   defp maybe_set_artifact_config({:ok, config}, options),
-    do: {:ok, Dict.merge(options, artifact_config: config)}
+    do: {:ok, Keyword.merge(options, artifact_config: config)}
   defp maybe_set_artifact_config(error, _),
     do: error
 

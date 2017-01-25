@@ -30,7 +30,7 @@ defmodule EDIB.BuildConfig.Artifact.Parser do
     do: {:error, "Invalid options given (not a list/dict/map)"}
 
   defp set_edib_tool({:ok, artifact_config, options}) do
-    edib_tool = Dict.get(options, :edib, Defaults.edib_tool)
+    edib_tool = Keyword.get(options, :edib, Defaults.edib_tool)
     {:ok, %Artifact{ artifact_config | edib_tool: edib_tool }, options}
   end
   defp set_edib_tool(error),
@@ -50,7 +50,7 @@ defmodule EDIB.BuildConfig.Artifact.Parser do
     do: errors
 
   defp ssh_keys_volume({:ok, artifact_config, options}) do
-    with_ssh_volume = Dict.get(options, :ssh_keys, false)
+    with_ssh_volume = Keyword.get(options, :ssh_keys, false)
     volumes         = add_ssh_volume(with_ssh_volume, artifact_config.volumes)
     {:ok, %Artifact{ artifact_config | volumes: volumes }, options}
   end
@@ -63,7 +63,7 @@ defmodule EDIB.BuildConfig.Artifact.Parser do
     do: volumes
 
   defp npm_packages_volume({:ok, artifact_config, options}) do
-    with_npm_volume = Dict.get(options, :npm, false)
+    with_npm_volume = Keyword.get(options, :npm, false)
     volumes = add_npm_volume(with_npm_volume, artifact_config.volumes)
     {:ok, %Artifact{ artifact_config | volumes: volumes }, options}
   end
@@ -76,7 +76,7 @@ defmodule EDIB.BuildConfig.Artifact.Parser do
     do: volumes
 
   defp hex_packages_volume({:ok, artifact_config, options}) do
-    with_hex_volume = Dict.get(options, :hex, false)
+    with_hex_volume = Keyword.get(options, :hex, false)
     volumes = add_hex_volume(with_hex_volume, artifact_config.volumes)
     {:ok, %Artifact{ artifact_config | volumes: volumes }, options}
   end
@@ -114,14 +114,14 @@ defmodule EDIB.BuildConfig.Artifact.Parser do
     do: error
 
   defp set_rm_flag({:ok, artifact_config, options}) do
-    rm = !Dict.get(options, :no_rm, Defaults.docker_run_no_rm)
+    rm = !Keyword.get(options, :no_rm, Defaults.docker_run_no_rm)
     {:ok, %Artifact{ artifact_config | rm: rm }, options}
   end
   defp set_rm_flag(error),
     do: error
 
   defp set_privileged_flag({:ok, artifact_config, options}) do
-    privileged = Dict.get(options, :privileged, Defaults.docker_run_privileged)
+    privileged = Keyword.get(options, :privileged, Defaults.docker_run_privileged)
     {:ok, %Artifact{ artifact_config | privileged: privileged }, options}
   end
   defp set_privileged_flag(error),
