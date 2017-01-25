@@ -8,13 +8,13 @@ defmodule EDIBUtilsLogWriterSpec do
       let :logline, do: "test log line"
 
       before do
-        File.rm_rf(logfile)
+        File.rm_rf(logfile())
       end
 
       it "writes data into the current's directory .edib.log file" do
-        LogWriter.write(logline)
-        content = File.read!(logfile)
-        expect(content).to have(logline)
+        LogWriter.write(logline())
+        content = File.read!(logfile())
+        expect(content).to have(logline())
       end
     end
   end

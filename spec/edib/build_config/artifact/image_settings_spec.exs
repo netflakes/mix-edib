@@ -15,8 +15,8 @@ defmodule EDIBBuildConfigArtifactImageSettingsSpec do
         let :options, do: %{name: "test-name"}
 
         it "returns list containing name option" do
-          result = ImageSettings.from_cli_options(options)
-          expect(result).to eql(["RELEASE_NAME=#{options.name}"])
+          result = ImageSettings.from_cli_options(options())
+          expect(result).to eql(["RELEASE_NAME=#{options().name}"])
         end
       end
 
@@ -24,8 +24,8 @@ defmodule EDIBBuildConfigArtifactImageSettingsSpec do
         let :options, do: %{tag: "test-tag"}
 
         it "returns list containing tag option" do
-          result = ImageSettings.from_cli_options(options)
-          expect(result).to eql(["RELEASE_TAG=#{options.tag}"])
+          result = ImageSettings.from_cli_options(options())
+          expect(result).to eql(["RELEASE_TAG=#{options().tag}"])
         end
       end
 
@@ -33,8 +33,8 @@ defmodule EDIBBuildConfigArtifactImageSettingsSpec do
         let :options, do: %{prefix: "test-prefix"}
 
         it "returns list containing prefix option" do
-          result = ImageSettings.from_cli_options(options)
-          expect(result).to eql(["RELEASE_PREFIX=#{options.prefix}"])
+          result = ImageSettings.from_cli_options(options())
+          expect(result).to eql(["RELEASE_PREFIX=#{options().prefix}"])
         end
       end
 
@@ -42,7 +42,7 @@ defmodule EDIBBuildConfigArtifactImageSettingsSpec do
         let :options, do: %{strip: true}
 
         it "returns list containing release strip option" do
-          result = ImageSettings.from_cli_options(options)
+          result = ImageSettings.from_cli_options(options())
           expect(result).to eql(["RELEASE_STRIP=true"])
         end
       end
@@ -51,7 +51,7 @@ defmodule EDIBBuildConfigArtifactImageSettingsSpec do
         let :options, do: %{zip: true}
 
         it "returns list containing release zip option" do
-          result = ImageSettings.from_cli_options(options)
+          result = ImageSettings.from_cli_options(options())
           expect(result).to eql(["RELEASE_ZIP=true"])
         end
       end
@@ -60,7 +60,7 @@ defmodule EDIBBuildConfigArtifactImageSettingsSpec do
         let :options, do: %{test: true}
 
         it "returns list containing test run option" do
-          result = ImageSettings.from_cli_options(options)
+          result = ImageSettings.from_cli_options(options())
           expect(result).to eql(["TEST=true"])
         end
       end
@@ -70,7 +70,7 @@ defmodule EDIBBuildConfigArtifactImageSettingsSpec do
       let :settings, do: ~w(foo bar baz)
 
       it "returns a docker options string" do
-        result = ImageSettings.to_docker_options(settings)
+        result = ImageSettings.to_docker_options(settings())
         expect(result).to eql(~s(-e "foo" -e "bar" -e "baz"))
       end
     end

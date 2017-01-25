@@ -11,8 +11,8 @@ defmodule EDIBUtilsPrefixWriterSpec do
         let :prefix,  do: "#{ANSI.magenta}|#{ANSI.reset} "
 
         it "writes data into the current's directory .edib.log file" do
-          content = capture_io(fn -> PrefixWriter.write(logline) end)
-          expect(content).to have(prefix <> logline)
+          content = capture_io(fn -> PrefixWriter.write(logline()) end)
+          expect(content).to have(prefix() <> logline())
         end
       end
 
@@ -21,8 +21,8 @@ defmodule EDIBUtilsPrefixWriterSpec do
         let :prefix,  do: "#{ANSI.magenta}|#{ANSI.reset} "
 
         it "writes data into the current's directory .edib.log file" do
-          content = capture_io(fn -> PrefixWriter.write(logline) end)
-          expect(content).to have(prefix <> logline)
+          content = capture_io(fn -> PrefixWriter.write(logline()) end)
+          expect(content).to have(prefix() <> logline())
         end
       end
 
@@ -38,11 +38,11 @@ defmodule EDIBUtilsPrefixWriterSpec do
           # OUTPUT:
           #   | foo
           #   | bar
-          content = capture_io(fn -> PrefixWriter.write(logline) end)
+          content = capture_io(fn -> PrefixWriter.write(logline()) end)
           expected_content =
-            logline
+            logline()
             |> String.split("\n")
-            |> Enum.map(&("#{prefix}#{&1}"))
+            |> Enum.map(&("#{prefix()}#{&1}"))
             |> Enum.join("\n")
           expect(content).to have(expected_content)
         end

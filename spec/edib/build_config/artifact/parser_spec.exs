@@ -20,7 +20,7 @@ defmodule EDIBBuildConfigArtifactParserSpec do
           {result, artifact_config} = Parser.from_cli_options([])
           expect(result).to eql(:ok)
           expect(artifact_config).to be_struct(Artifact)
-          expect(artifact_config).to eq(default_artifact_config)
+          expect(artifact_config).to eq(default_artifact_config())
         end
       end
 
@@ -29,10 +29,10 @@ defmodule EDIBBuildConfigArtifactParserSpec do
           let :custom_edib_image_name, do: "edib/foo:bar"
 
           it "returns the passed edib docker image" do
-            {result, artifact_config} = Parser.from_cli_options([edib: custom_edib_image_name])
+            {result, artifact_config} = Parser.from_cli_options([edib: custom_edib_image_name()])
             expect(result).to eql(:ok)
             expect(artifact_config).to be_struct(Artifact)
-            expect(artifact_config).to eq(%{default_artifact_config | edib_tool: custom_edib_image_name})
+            expect(artifact_config).to eq(%{default_artifact_config() | edib_tool: custom_edib_image_name()})
           end
         end
 
@@ -78,9 +78,9 @@ defmodule EDIBBuildConfigArtifactParserSpec do
           let :invalid_volume_option, do: "i_am_so_alone"
 
           it "fails with error" do
-            {result, message} = Parser.from_cli_options([volume: invalid_volume_option])
+            {result, message} = Parser.from_cli_options([volume: invalid_volume_option()])
             expect(result).to eql(:error)
-            expect(message).to eql("Given volume option is not valid: #{invalid_volume_option}")
+            expect(message).to eql("Given volume option is not valid: #{invalid_volume_option()}")
           end
         end
       end

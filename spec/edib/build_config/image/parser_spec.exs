@@ -9,7 +9,7 @@ defmodule EDIBBuildConfigImageParserTest do
         let :cfg_file, do: "spec/fixtures/artifact.cfg"
 
         it "returns image config" do
-          {result, config} = Parser.parse_file(cfg_file)
+          {result, config} = Parser.parse_file(cfg_file())
           expect(result).to eql(:ok)
           expect(config).to be_struct(Image)
         end
@@ -20,7 +20,7 @@ defmodule EDIBBuildConfigImageParserTest do
           let :cfg_file, do: "spec/fixtures/artifact.with_settings_file.cfg"
 
           it "returns image config" do
-            {result, config} = Parser.parse_file(cfg_file)
+            {result, config} = Parser.parse_file(cfg_file())
             expect(result).to eql(:ok)
             expect(config).to be_struct(Image)
           end
@@ -30,7 +30,7 @@ defmodule EDIBBuildConfigImageParserTest do
           let :cfg_file, do: "spec/fixtures/artifact.with_broken_file.cfg"
 
           it "fails with error" do
-            {result, message} = Parser.parse_file(cfg_file)
+            {result, message} = Parser.parse_file(cfg_file())
             expect(result).to eql(:error)
             expect(message).to have("Could not read image settings configuration file:")
           end
@@ -42,7 +42,7 @@ defmodule EDIBBuildConfigImageParserTest do
           let :cfg_file, do: "spec/fixtures/artifact.with_no_tarball.cfg"
 
           it "fails with error" do
-            {result, message, _cfg} = Parser.parse_file(cfg_file)
+            {result, message, _cfg} = Parser.parse_file(cfg_file())
             expect(result).to eql(:error)
             expect(message).to have("No tarball file name present in artifact.cfg")
           end
@@ -52,7 +52,7 @@ defmodule EDIBBuildConfigImageParserTest do
           let :cfg_file, do: "spec/fixtures/artifact.with_broken_tarball.cfg"
 
           it "fails with error" do
-            {result, message} = Parser.parse_file(cfg_file)
+            {result, message} = Parser.parse_file(cfg_file())
             expect(result).to eql(:error)
             expect(message).to have("Tarball file not found: ")
           end
@@ -63,9 +63,9 @@ defmodule EDIBBuildConfigImageParserTest do
         let :cfg_file, do: "spec/fixtures/no.artifact.cfg.found"
 
         it "fails with error" do
-          {result, message} = Parser.parse_file(cfg_file)
+          {result, message} = Parser.parse_file(cfg_file())
           expect(result).to eql(:error)
-          expect(message).to eql("Could not read image config file: #{cfg_file}")
+          expect(message).to eql("Could not read image config file: #{cfg_file()}")
         end
       end
     end

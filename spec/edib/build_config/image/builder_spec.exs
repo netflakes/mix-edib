@@ -13,44 +13,44 @@ defmodule EDIBBuildConfigImageBuilderTest do
 
         let :image_config do
           %Image{
-            tarball_dir: tarball_dir,
-            tarball: tarball,
-            name: name,
-            tag: tag,
-            settings: settings
+            tarball_dir: tarball_dir(),
+            tarball: tarball(),
+            name: name(),
+            tag: tag(),
+            settings: settings()
           }
         end
 
         let :tarball_command,
-          do: "gunzip -c #{tarball_dir}/#{tarball}"
+          do: "gunzip -c #{tarball_dir()}/#{tarball()}"
         let :import_command,
-          do: "docker import #{output_settings} - #{name}:#{tag}"
+          do: "docker import #{output_settings()} - #{name()}:#{tag()}"
         let :cat_and_import,
-          do: ~s(sh -c "#{tarball_command} | #{import_command}")
+          do: ~s(sh -c "#{tarball_command()} | #{import_command()}")
         let :tag_command,
-          do: "docker tag #{name}:#{tag} #{name}:latest"
+          do: "docker tag #{name()}:#{tag()} #{name()}:latest"
 
         context "settings as string" do
           let :settings, do: "test-settings"
-          let :output_settings, do: settings
+          let :output_settings, do: settings()
 
           it "returns command list" do
-            {result, commands} = Builder.build(image_config)
+            {result, commands} = Builder.build(image_config())
             expect(result).to eql(:ok)
-            expect(commands).to have(cat_and_import)
-            expect(commands).to have(tag_command)
+            expect(commands).to have(cat_and_import())
+            expect(commands).to have(tag_command())
           end
         end
 
         context "settings as list" do
           let :settings, do: ["a-test-setting"]
-          let :output_settings, do: ~s(--change '#{hd(settings)}')
+          let :output_settings, do: ~s(--change '#{hd(settings())}')
 
           it "returns command list" do
-            {result, commands} = Builder.build(image_config)
+            {result, commands} = Builder.build(image_config())
             expect(result).to eql(:ok)
-            expect(commands).to have(cat_and_import)
-            expect(commands).to have(tag_command)
+            expect(commands).to have(cat_and_import())
+            expect(commands).to have(tag_command())
           end
         end
       end

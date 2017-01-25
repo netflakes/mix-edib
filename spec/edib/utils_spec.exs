@@ -10,49 +10,49 @@ defmodule EdibUtilsSpec do
 
       describe "print/1" do
         it "prints a message to the shell output" do
-          result = capture_io(fn -> Utils.print(message) end)
-          expect(result).to_not have(prefix)
-          expect(result).to have(message)
+          result = capture_io(fn -> Utils.print(message()) end)
+          expect(result).to_not have(prefix())
+          expect(result).to have(message())
         end
       end
 
       describe "debug/1" do
         it "prints debug message" do
-          result = capture_io(fn -> Utils.debug(message) end)
-          expect(result).to have(prefix)
-          expect(result).to have(message)
+          result = capture_io(fn -> Utils.debug(message()) end)
+          expect(result).to have(prefix())
+          expect(result).to have(message())
         end
       end
 
       describe "info/1" do
         it "prints info message" do
-          result = capture_io(fn -> Utils.info(message) end)
-          expect(result).to have(prefix)
-          expect(result).to have(message)
+          result = capture_io(fn -> Utils.info(message()) end)
+          expect(result).to have(prefix())
+          expect(result).to have(message())
         end
       end
 
       describe "warn/1" do
         it "prints warn message" do
-          result = capture_io(fn -> Utils.warn(message) end)
-          expect(result).to have(prefix)
-          expect(result).to have(message)
+          result = capture_io(fn -> Utils.warn(message()) end)
+          expect(result).to have(prefix())
+          expect(result).to have(message())
         end
       end
 
       describe "error/1" do
         it "prints error message" do
-          result = capture_io(fn -> Utils.error(message) end)
-          expect(result).to have(prefix)
-          expect(result).to have(message)
+          result = capture_io(fn -> Utils.error(message()) end)
+          expect(result).to have(prefix())
+          expect(result).to have(message())
         end
       end
 
       describe "notice/1" do
         it "prints notice message" do
-          result = capture_io(fn -> Utils.notice(message) end)
-          expect(result).to_not have(prefix)
-          expect(result).to have(message)
+          result = capture_io(fn -> Utils.notice(message()) end)
+          expect(result).to_not have(prefix())
+          expect(result).to have(message())
         end
       end
     end
@@ -63,7 +63,7 @@ defmodule EdibUtilsSpec do
 
       let :result do
         try do
-          abort_fun.()
+          abort_fun().()
         catch
           :exit, _ -> true
           _ -> false
@@ -71,7 +71,7 @@ defmodule EdibUtilsSpec do
       end
 
       it "exits the running process" do
-        expect(result).to be_true
+        expect(result()).to be_true()
       end
     end
 
@@ -79,7 +79,7 @@ defmodule EdibUtilsSpec do
       let :callback, do: fn(out) -> out end
 
       it "triggers a command" do
-        result = Utils.do_cmd("echo hello", callback)
+        result = Utils.do_cmd("echo hello", callback())
         expect(result).to eql(0)
       end
     end
@@ -93,20 +93,20 @@ defmodule EdibUtilsSpec do
       describe "print_info/1" do
         context "if :ok" do
           let :printer_fn, do: fn ->
-            expect(Utils.print_info(ok_data, ok_message)) |> to(eq ok_data)
+            expect(Utils.print_info(ok_data(), ok_message())) |> to(eq ok_data())
           end
 
           it "prints the message if ok and returns the data" do
-            result = capture_io(printer_fn)
-            expect(result).to have(ok_message)
+            result = capture_io(printer_fn())
+            expect(result).to have(ok_message())
           end
         end
 
         context "if :error" do
           it "does not print any message, but returns the error data" do
-            result = Utils.print_info(error_data, error_message)
-            expect(result).to be_tuple
-            expect(result).to eql(error_data)
+            result = Utils.print_info(error_data(), error_message())
+            expect(result).to be_tuple()
+            expect(result).to eql(error_data())
           end
         end
       end
@@ -114,20 +114,20 @@ defmodule EdibUtilsSpec do
       describe "print_notice/1" do
         context "if :ok" do
           let :printer_fn, do: fn ->
-            expect(Utils.print_notice(ok_data, ok_message)) |> to(eq ok_data)
+            expect(Utils.print_notice(ok_data(), ok_message())) |> to(eq ok_data())
           end
 
           it "prints the message if ok and returns the data" do
-            result = capture_io(printer_fn)
-            expect(result).to have(ok_message)
+            result = capture_io(printer_fn())
+            expect(result).to have(ok_message())
           end
         end
 
         context "if :error" do
           it "does not print any message, but returns the error data" do
-            result = Utils.print_notice(error_data, error_message)
-            expect(result).to be_tuple
-            expect(result).to eql(error_data)
+            result = Utils.print_notice(error_data(), error_message())
+            expect(result).to be_tuple()
+            expect(result).to eql(error_data())
           end
         end
       end
