@@ -6,18 +6,18 @@ defmodule EDIBDefaultsSpec do
 
   describe "EDIB.Defaults" do
     let! :version, do: @defaul_edib_version
-    let! :image, do: "edib/edib-tool:#{version}"
+    let! :image, do: "edib/edib-tool:#{version()}"
     let! :artifact_cfg, do: "artifact.cfg"
 
     describe "edib_version/0" do
       it "returns the current default version" do
-        expect(Defaults.edib_version).to eql(version)
+        expect(Defaults.edib_version).to eql(version())
       end
     end
 
     describe "edib_tool/0" do
       it "returns the current default image" do
-        expect(Defaults.edib_tool).to eql(image)
+        expect(Defaults.edib_tool).to eql(image())
       end
     end
 
@@ -53,13 +53,13 @@ defmodule EDIBDefaultsSpec do
 
     describe "artifact_config/0" do
       it "returns the current artifact config file name" do
-        expect(Defaults.artifact_config).to eql(artifact_cfg)
+        expect(Defaults.artifact_config).to eql(artifact_cfg())
       end
     end
 
     describe "artifact_config_path/0" do
       it "returns the current full artifact config file path" do
-        expect(Defaults.artifact_config_path).to eql("#{System.cwd!}/tarballs/#{artifact_cfg}")
+        expect(Defaults.artifact_config_path).to eql("#{System.cwd!}/tarballs/#{artifact_cfg()}")
       end
     end
 
@@ -95,13 +95,13 @@ defmodule EDIBDefaultsSpec do
 
     describe "docker_run_privileged/0" do
       it "returns the current docker privileged flag default" do
-        expect(Defaults.docker_run_privileged).to be_false
+        expect(Defaults.docker_run_privileged).to be_false()
       end
     end
 
     describe "docker_run_no_rm/0" do
       it "returns the current docker no-rm flag default (if --rm should not be used)" do
-        expect(Defaults.docker_run_no_rm).to be_false
+        expect(Defaults.docker_run_no_rm).to be_false()
       end
     end
 

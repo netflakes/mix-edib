@@ -17,7 +17,7 @@ defmodule EDIB.BuildConfig.Artifact.Volumes do
   ### Internals
 
   defp volumes_or_errors(volumes) do
-    volumes |> Dict.has_key?(:error) |> maybe_volumes_or_errors(volumes)
+    volumes |> Keyword.has_key?(:error) |> maybe_volumes_or_errors(volumes)
   end
 
   defp maybe_volumes_or_errors(false, volumes),
