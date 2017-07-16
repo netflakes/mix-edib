@@ -9,6 +9,20 @@ This change log follows the recommendations of [keepachangelog].
 
 (no changes yet)
 
+## [0.11.0] - 2017-07-16
+
+### Notes
+
+- The usage of `mix archive.install hex edib` is preferred and promoted.
+
+### Changed
+
+- Update outdated dependencies.
+
+### Fixed
+
+- Removed further Elixir 1.4 warnings
+
 ## [0.10.0] - 2017-01-22
 
 ### Notes
@@ -84,7 +98,9 @@ PRs for updating the change log history are very welcome!
 
 [Semantic Versioning]: http://semver.org/
 [keepachangelog]: http://keepachangelog.com/
-[Unreleased]: https://github.com/edib-tool/mix-edib/compare/v0.9.0...HEAD
+[Unreleased]: https://github.com/edib-tool/mix-edib/compare/v0.11.0...HEAD
+[0.11.0]: https://github.com/edib-tool/mix-edib/compare/v0.11.0...v0.10.0
+[0.10.0]: https://github.com/edib-tool/mix-edib/compare/v0.10.0...v0.9.0
 [0.9.0]: https://github.com/edib-tool/mix-edib/compare/v0.9.0...v0.8.3
 [0.8.3]: https://github.com/edib-tool/mix-edib/compare/v0.8.3...v0.8.2
 [0.8.2]: https://github.com/edib-tool/mix-edib/compare/v0.8.2...v0.8.1
