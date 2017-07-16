@@ -29,6 +29,8 @@ defmodule EDIB.Mixfile do
     """
     Mix task to create a docker image of your application release.
 
+    Installation: `mix archive.install hex edib`
+
     More detailed information about release image building at:
 
     https://github.com/edib-tool/elixir-docker-image-builder

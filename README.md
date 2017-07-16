@@ -39,7 +39,7 @@ EDIB creates a docker image of your application release.
 
 Just run this and confirm:
 
-    mix archive.install https://git.io/edib-0.10.0.ez
+    mix archive.install hex edib
 
 Don't forget to add `distillery` to your project:
 
