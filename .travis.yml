@@ -32,5 +32,6 @@ after_script:
   - mix hex.outdated
 
 matrix:
+  fast_finish: true
   allow_failures:
     - otp_release: 20.0
