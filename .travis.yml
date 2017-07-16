@@ -30,3 +30,7 @@ after_script:
   - mix xref unreachable
   - mix credo --strict
   - mix hex.outdated
+
+matrix:
+  allow_failures:
+    - otp_release: 20.0
