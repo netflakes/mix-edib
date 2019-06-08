@@ -10,7 +10,7 @@ defmodule EDIB.Mixfile do
       app:           :edib,
       name:          "edib",
       version:       @version,
-      elixir:        "~> 1.4",
+      elixir:        "~> 1.6",
       deps:          deps(),
       description:   description(),
       package:       package(),
